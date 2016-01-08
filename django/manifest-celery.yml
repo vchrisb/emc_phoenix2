@@ -1,0 +1,20 @@
+---
+applications:
+- name: phoenix-celery
+  instances: 1
+  memory: 1024M
+  command: null
+  buildpack: python_buildpack
+  command: "newrelic-admin run-program celery -A phoenix worker -l info --without-gossip --without-mingle --without-heartbeat"
+  no-route: true
+  health-check-type: none
+  services:
+  - phoenix_db
+  - phoenix_ecs
+  - phoenix_mail
+  - phoenix_rabbitmq
+  - phoenix_twitter
+  - phoenix_config
+  - phoenix_newrelic
+  env:
+    DISABLE_COLLECTSTATIC: '1'

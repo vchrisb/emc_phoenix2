@@ -1,0 +1,27 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block content %}
+<div class="container center">
+  <div class="row row-content">
+    <div class="well well-small col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+      <h1>{% trans "Sign Out" %}</h1>
+
+      <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <div class="btn-div pull-center">
+          <button class="btn btn-primary btn-block" type="submit">{% trans 'Sign Out' %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Contact{% endblock %}
+
+{% block jumbo %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-sm-6 col-md-3">
+      <h1>{{ title }}</h1>
+      You issued {{ tasks }} tasks to find prime numbers in numbers up to {{ range }}!
+    </div>
+  </div>
+</div>
+{% endblock %}

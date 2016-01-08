@@ -1,0 +1,18 @@
+---
+applications:
+- name: phoenix
+  host: phoenix2
+  instances: 2
+  memory: 256M
+  command: null
+  buildpack: python_buildpack
+  services:
+  - phoenix_db
+  - phoenix_ecs
+  - phoenix_mail
+  - phoenix_rabbitmq
+  - phoenix_twitter
+  - phoenix_config
+  - phoenix_newrelic
+  env:
+    DISABLE_COLLECTSTATIC: '1'

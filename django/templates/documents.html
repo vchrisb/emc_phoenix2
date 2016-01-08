@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block head_title %}Agenda{% endblock %}
+
+{% block head_css %}
+<link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-sm-6 col-md-6">
+      <h1>Documents:</h1>
+      {% for entry in entries %}
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">{{ entry.title }}</div>
+        {% if entry.description %}
+        <div class="panel-body">
+          <p>{{ entry.title }}</p>
+        </div>
+        {% endif %}
+        <!-- List group -->
+        <ul class="list-group">
+          {% for document in entry.document.all %}
+          <li class="list-group-item"><span class="badge">{{ document.downloads }}</span><a href="{% url 'document' document.id %}" target="_blank"><i class="glyphicon glyphicon-download"></i> {{ document.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

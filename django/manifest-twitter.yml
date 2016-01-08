@@ -1,0 +1,19 @@
+---
+applications:
+- name: phoenix-twitter-watcher
+  instances: 1
+  memory: 128M
+  command: null
+  buildpack: python_buildpack
+  command: "python manage.py twitter_watcher --keywords EMCPhoenix2 emc_phoenix"
+  no-route: true
+  health-check-type: none
+  services:
+  - phoenix_db
+  - phoenix_ecs
+  - phoenix_mail
+  - phoenix_rabbitmq
+  - phoenix_twitter
+  - phoenix_config
+  env:
+    DISABLE_COLLECTSTATIC: '1'

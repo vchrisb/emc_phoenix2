@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+<!-- Main component for a primary marketing message or call to action -->
+{% block content %}
+<!-- Main header  -->
+<div id="feature-area" class="hidden-xs hidden-sm" style="background-image: url({% static 'img/hdr_home_quantum.jpg' %})">
+  <div class="feature-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 feature-content">
+          <div class="feature-content-inner clearfix">
+            <img src="{% static 'img/townhall_header.png' %}" class="img-responsive">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="feature-area" class="visible-xs-block visible-sm-block" style="background-image: url({% static 'img/hdr_home_quantum_mobile.jpg' %})">
+  <div class="feature-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 feature-content">
+          <div class="feature-content-inner clearfix" style="background: url({% static 'img/bg_feature_area.png' %}); padding: 25px;">
+            <img src="{% static 'img/townhall_header.png' %}" class="img-responsive">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Marketing messaging and featurettes
+    ================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing">
+
+  {% if user.is_authenticated %}
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div class="col-lg-4">
+      <img class="img-circle" src="{% static 'img/agenda.jpg' %}" alt="Zeitplan" width="140" height="140">
+      <h2>Agenda</h2>
+      <p>Hier sollten wir einen Überblick über die Agenda geben. Ich habe bisher keine Ide was wir da genau zeigen werden da ich diese noch nciht final gesehen habe. </p>
+      <p><a class="btn btn-default" href="{% url 'agenda' %}" role="button">weitere Details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <img class="img-circle" src="{% static 'img/image_app.jpg' %}" alt="EMC Ready" width="140" height="140">
+      <h2>Feed</h2>
+      <p>Hier sollte eine Vorstellung unserer "Bilder Share App" hinterlegt sein. Ich habe in der Navigation ebenfalls einen Link hinterlegt. Ich glaube allerdings das der nicht sichbar genug ist. </p>
+      <p><a class="btn btn-default" href="{% url 'tweet' %}" role="button">weitere Details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <img class="img-circle" src="{% static 'img/emc_ready.jpg' %}" alt="Generic placeholder image" width="140" height="140">
+      <h2>Documents</h2>
+      <p>Hier sollten wir die Materialien für EMC Ready hinterlegen, das Material wird von außen nicht erreichbar sein. Es sollte als Link auf die eigentlichen Resourcen dienen.</p>
+      <p><a class="btn btn-default" href="{% url 'documents' %}" role="button">weitere Details &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+  {% endif %}
+
+  <!-- START THE FEATURETTES -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive center-block" src="{% static 'img/placeholder_500.png' %}" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7 col-md-push-5">
+      <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5 col-md-pull-7">
+      <img class="featurette-image img-responsive center-block" src="{% static 'img/placeholder_500.png' %}" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive center-block" src="{% static 'img/placeholder_500.png' %}" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <!-- /END THE FEATURETTES -->
+
+</div><!-- /.container -->
+
+{% endblock %}

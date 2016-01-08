@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block head_title %}Schedule{% endblock %}
+
+{% block head_css %}
+<link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-sm-9 col-md-9">
+      <ul class="timeline">
+    {% for entry in entries %}
+        {% if entry.hospitality %}
+        <li>
+        {% else %}
+        <li class="timeline-inverted">
+        {% endif %}
+          <div class="timeline-badge timeline-badge-small {% if entry.is_happening %}danger{% elif entry.hospitality %}success{% else %}primary{% endif %}">{{ entry.start|date:"G:i" }}</div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <strong class="timeline-title" display="inline">{{ entry.title }}</strong><br>
+              <span><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ entry.get_duration }} minutes</small></span><br>
+              {% if entry.speaker %}<span><small class="text-muted"><i class="glyphicon glyphicon-user"></i> {{ entry.speaker }}</small></span><br>{% endif %}
+              {% if entry.location %}<span><small class="text-muted"><i class="glyphicon glyphicon-map-marker"></i> {{ entry.location }}</small></span><br>{% endif %}
+            </div>
+            <div class="timeline-body">
+              <p>{{ entry.description }}</p>
+            </div>
+          </div>
+        </li>
+    {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
