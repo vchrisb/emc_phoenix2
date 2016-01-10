@@ -24,8 +24,24 @@
         <li><a href="{% url 'documents' %}">Documents</a></li>
         {% endif %}
         <li><a href="{% url 'contact' %}">Contact</a></li>
-
+        {% if user.is_superuser %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Superuser <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'admin:index' %}" target="_blank">admin</a></li>
+            <li><a href="{% url 'api-root' %}" target="_blank">api</a></li>
+            <li><a href="{% url 'primes' %}">primes</a></li>
+          </ul>
+        </li>
+        {% endif %}
         {% if user.is_authenticated %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'account_email' %}">email address</a></li>
+              <li><a href="{% url 'account_set_password' %}">password</a></li>
+            </ul>
+          </li>
           <li><a href="{% url 'account_logout' %}">Logout</a></li>
         {% else %}
           <li><a href="{% url 'account_login' %}">Login</a></li>

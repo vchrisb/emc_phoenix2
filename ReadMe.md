@@ -90,7 +90,8 @@ cf cups phoenix_mail -p '{"HOST":"smtp.domain.local","USER":"django@domain.local
 cf cups phoenix_twitter -p '{"CONSUMER_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","CONSUMER_SECRET":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","ACCESS_TOKEN":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","ACCESS_TOKEN_SECRET":"ABCDEFGHIJKLMNOPQRSTUVWXYZ"}'
 cf cups phoenix_config -p '{"SECRET_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","DEBUG":"False"}'
 ```
-##### initial push for database creation or later database migrations
+##### initial push for database creation
+Script will create a superuser ``admin`` with password ``admin``
 ```cf push --no-route -c "bash ./init_db.sh" -i 1```
 
 ##### migrate database

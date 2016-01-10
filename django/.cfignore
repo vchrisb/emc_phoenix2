@@ -1,4 +1,4 @@
 static
 static_custom
-environment.sh
+environments.sh
 db.sqlite.db
