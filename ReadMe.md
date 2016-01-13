@@ -106,3 +106,18 @@ cf delete phoenix-migrate```
 
 ##### push twitter-watcher
 ```cf push -f manifest-twitter-watcher.yml```
+
+#### Backup & Restore Database
+
+##### Local Backup
+```pg_dump postgres:///phoenix -F t > psqldump.tar```
+
+##### Remote Backup
+```pg_dump postgres://user:password@host.db.elephantsql.com:5432/database -F t > elephantsqldump.tar```
+
+##### Local Restore
+```
+dropdb phoenix
+sudo -u postgres createdb -U postgres --locale=en_US.utf-8 -E utf-8 -O vagrant phoenix -T template0
+pg_restore -d phoenix psqldump.tar
+```
