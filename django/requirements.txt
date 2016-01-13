@@ -2,7 +2,6 @@ boto
 celery
 django
 django-allauth
-django-dbbackup
 django-celery-email
 django-cleanup
 django-crispy-forms

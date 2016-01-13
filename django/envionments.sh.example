@@ -62,4 +62,5 @@ export VCAP_SERVICES='{
       ]
 }'
 
-export DATABASE_URL='sqlite:///db.sqlite.db'
+#export DATABASE_URL='sqlite:///db.sqlite.db'
+export DATABASE_URL='postgres:///phoenix'

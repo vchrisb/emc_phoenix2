@@ -1,7 +1,15 @@
 #!/bin/bash
 
 su vagrant
-sudo dnf -y install python3-pip python3-devel redhat-rpm-config postgresql postgresql-devel gcc nano git mysql-devel wget
+sudo dnf -y install python3-pip python3-devel redhat-rpm-config gcc nano git mysql-devel wget
+
+# install and configure postgresql
+sudo dnf -y install postgresql postgresql-server postgresql-contrib postgresql-devel
+sudo postgresql-setup initdb
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+sudo -u postgres createuser -s vagrant
+sudo -u postgres createdb -U postgres --locale=en_US.utf-8 -E utf-8 -O vagrant phoenix -T template0
 
 # install and configure rabbitmq
 sudo dnf -y install rabbitmq-server

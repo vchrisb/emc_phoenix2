@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'captcha',
-    'dbbackup',  # django-dbbackup
     # allauth
     'allauth',
     'allauth.account',
@@ -243,14 +242,3 @@ CELERYD_TASK_TIME_LIMIT = 3600
 DJANGORESIZED_DEFAULT_SIZE = [1024, 1024]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
-
-# django-dbbackup
-DBBACKUP_STORAGE = 'dbbackup.storage.s3_storage'
-DBBACKUP_STORAGE_OPTIONS = {
-    'access_key': AWS_ACCESS_KEY_ID,
-    'secret_key': AWS_SECRET_ACCESS_KEY,
-    'host': AWS_S3_HOST,
-    'bucket_name': SECURE_BUCKET_NAME,
-    'location': 'backup',
-    'default_acl': 'private'
-}
