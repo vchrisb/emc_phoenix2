@@ -31,7 +31,7 @@
                   {% if entry.location %}<span><small class="text-muted"><i class="glyphicon glyphicon-map-marker"></i> {{ entry.location }}</small></span><br>{% endif %}
                 </div>
                 <div class="timeline-body">
-                  <p>{{ entry.description }}</p>
+                  <p>{{ entry.description|linebreaksbr }}</p>
                 </div>
               </div>
             </li>

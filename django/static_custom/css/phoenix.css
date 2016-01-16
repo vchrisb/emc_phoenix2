@@ -119,7 +119,7 @@ main header
 ------------------------- */
 
 .featurette-divider {
-  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+  margin: 40px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
@@ -357,7 +357,7 @@ a.btn-menu-linkedin {
     width:970px;
   }
   .featurette-heading {
-    margin-top: 120px;
+    margin-top: 60px;
   }
 }
 

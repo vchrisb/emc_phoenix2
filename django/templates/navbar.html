@@ -40,11 +40,11 @@
             <ul class="dropdown-menu">
               <li><a href="{% url 'account_email' %}">email address</a></li>
               <li><a href="{% url 'account_set_password' %}">password</a></li>
+              <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
             </ul>
           </li>
-          <li><a href="{% url 'account_logout' %}">Logout</a></li>
         {% else %}
-          <li><a href="{% url 'account_login' %}">Login</a></li>
+          <li><a href="{% url 'account_login' %}">Sign In</a></li>
         {% endif %}
       </ul>
     </div>

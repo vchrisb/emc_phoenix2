@@ -7,26 +7,15 @@ import os
 from django.core.mail import send_mail
 
 from .forms import ContactForm, ContactFormSignedIn
-
+from .models import Featurette
 import json
 
 # Create your views here.
 def home(request):
 
-    if 'CF_INSTANCE_INDEX' in os.environ:
-        CF_INSTANCE_INDEX = os.environ['CF_INSTANCE_INDEX']
-    else:
-        CF_INSTANCE_INDEX = 999
-
-    if "VCAP_APPLICATION" in os.environ:
-        application_name = json.loads(os.environ['VCAP_APPLICATION'])['application_name']
-    else:
-        application_name = "local"
-
-    title = "Welcome on instance %s using app %s" %(CF_INSTANCE_INDEX, application_name)
+    featurette_list = Featurette.objects.filter(publish=True).order_by('position')
     context = {
-        "title": title,
-        "index": CF_INSTANCE_INDEX,
+        "featurettes": featurette_list,
     }
 
     return render(request, "home.html", context)

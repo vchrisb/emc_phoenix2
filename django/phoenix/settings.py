@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.github',
     # my apps
-    'newsletter',
+    'content',
     'mytwitter',
     'agenda',
     'vault'
