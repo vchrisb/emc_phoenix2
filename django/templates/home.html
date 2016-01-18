@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
-
+{% load markdown_filter %}
 <!-- Main component for a primary marketing message or call to action -->
 {% block content %}
 <!-- Main header  -->
@@ -70,7 +70,7 @@
       <div class="row featurette">
         <div class="col-md-7{% if forloop.counter|divisibleby:2 %} col-md-push-5{% endif %}">
           <h2 class="featurette-heading">{{ featurette.heading }}</h2>
-          <p class="lead">{{ featurette.content|linebreaksbr }}</p>
+          <p class="lead">{{ featurette.content|markdownify|safe }}</p>
         </div>
         <div class="col-md-5{% if forloop.counter|divisibleby:2 %} col-md-pull-7{% endif %}">
           <img class="featurette-image img-responsive center-block" src="{{ featurette.image.url }}">

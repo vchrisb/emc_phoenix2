@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load markdown_filter %}
 {% block head_title %}Tweet{% endblock %}
 
 {% block head_css %}
@@ -33,7 +34,7 @@
               <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ tweet.created_at|timesince }} ago {% if tweet.from_twitter %}via Twitter{% endif %}</small></p>
             </div>
             <div class="timeline-body">
-              <p>{{ tweet.text }}</p>
+              <p>{{ tweet.text|markdown_urlify|safe }}</p>
               {% for tweetpic in tweet.pics.all %}
                 <br>
                 <a class="image-popup-vertical-fit" href="{% url 'tweetpic' tweetpic.id %}?size=large"><img src="{{ tweetpic.pic_medium.url }}" class="img-responsive"></img></a>
