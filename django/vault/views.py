@@ -4,7 +4,7 @@ from .models import DocumentGroup, Document
 from phoenix.decorators import specific_verified_email_required
 
 # Create your views here.
-@specific_verified_email_required(domains=['emc.com','vmware.com'])
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def documents(request):
     documentgroup_list = DocumentGroup.objects.all().order_by('title')
     context = {
@@ -12,7 +12,7 @@ def documents(request):
     }
     return render(request, "documents.html", context)
 
-@specific_verified_email_required(domains=['emc.com','vmware.com'])
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def document(request, uuid):
     document_obj = get_object_or_404(Document, pk=uuid)
     document_obj.downloads += 1

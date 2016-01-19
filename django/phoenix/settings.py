@@ -20,8 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "1234-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&"
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -207,6 +205,7 @@ REST_FRAMEWORK = {
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 
 # allauth
+ACCOUNT_ADAPTER = "phoenix.adapter.AccountAdapter"
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -215,7 +214,9 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
 ACCOUNT_USERNAME_MIN_LENGTH = 6
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
 ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_AUTO_SIGNUP = False
+#SOCIALACCOUNT_QUERY_EMAIL = False
 SOCIALACCOUNT_PROVIDERS = \
     {
     'github':
@@ -242,3 +243,6 @@ CELERYD_TASK_TIME_LIMIT = 3600
 DJANGORESIZED_DEFAULT_SIZE = [1024, 1024]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
+
+# restrict access to certain domains
+ALLOWED_DOMAINS = ['emc.com', 'vmware.com']

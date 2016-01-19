@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.conf import settings
 # Create your views here.
 from .forms import TweetForm
 from .models import Tweet, TweetPic
@@ -12,7 +13,7 @@ from .tasks import process_image
 from PIL import Image
 
 @transaction.atomic
-@specific_verified_email_required(domains=['emc.com','vmware.com'])
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def tweet(request):
     title = "Tweet:"
     tweet_list = Tweet.objects.all().order_by('-created_at')
@@ -54,7 +55,7 @@ def tweet(request):
     }
     return render(request, "tweet.html", context)
 
-@specific_verified_email_required(domains=['emc.com','vmware.com'])
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def TweetPicView(request, uuid):
     TweetPicObj = get_object_or_404(TweetPic, pk=uuid)
     size = ''
