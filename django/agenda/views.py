@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.conf import settings
 from .models import Entry
 from phoenix.decorators import specific_verified_email_required
 

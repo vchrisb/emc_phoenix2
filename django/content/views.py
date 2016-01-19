@@ -7,7 +7,7 @@ import os
 from django.core.mail import send_mail
 
 from .forms import ContactForm, ContactFormSignedIn
-from .models import Featurette
+from .models import Featurette, FAQ
 import json
 
 # Create your views here.
@@ -19,6 +19,16 @@ def home(request):
     }
 
     return render(request, "home.html", context)
+
+# Create your views here.
+def faq(request):
+
+    faq_list = FAQ.objects.filter(publish=True).order_by('position')
+    context = {
+        "faqs": faq_list,
+    }
+
+    return render(request, "faq.html", context)
 
 def contact(request):
     title = "Contact:"

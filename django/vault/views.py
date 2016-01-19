@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
+from django.conf import settings
 from .models import DocumentGroup, Document
 from phoenix.decorators import specific_verified_email_required
 
