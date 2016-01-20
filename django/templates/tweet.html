@@ -21,7 +21,7 @@
     </div>
     <div class="col-sm-9 col-md-9">
       <ul class="timeline">
-    {% for tweet in tweets %}
+      {% for tweet in tweets %}
         {% if forloop.counter|divisibleby:2 %}
         <li>
         {% else %}
@@ -42,23 +42,41 @@
             </div>
           </div>
         </li>
-    {% endfor %}
+      {% endfor %}
       </ul>
-      <div class="pagination">
-        <span class="step-links">
-            {% if tweets.has_previous %}
-                <a href="?page={{ tweets.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ tweets.number }} of {{ tweets.paginator.num_pages }}
-            </span>
-
-            {% if tweets.has_next %}
-                <a href="?page={{ tweets.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-      </div>
+      <div class="text-center">
+      <nav>
+        <ul class="pagination">
+          {% if tweets.has_previous %}
+          <li>
+            <a href="?page={{ tweets.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% endif %}
+          {% if tweets.number|add:"-2" > 0 %}
+          <li><a href="?page={{ tweets.number|add:"-2" }}">{{ tweets.number|add:"-2" }}</a></li>
+          {% endif %}
+          {% if tweets.number|add:"-1" > 0 %}
+          <li><a href="?page={{ tweets.number|add:"-1" }}">{{ tweets.number|add:"-1" }}</a></li>
+          {% endif %}
+          <li class="active"><a href="?page={{ tweets.number }}">{{ tweets.number }}</a></li>
+          {% if tweets.number|add:"1" <= tweets.paginator.num_pages %}
+          <li><a href="?page={{ tweets.number|add:"1" }}">{{ tweets.number|add:"1" }}</a></li>
+          {% endif %}
+          {% if tweets.number|add:"2" <= tweets.paginator.num_pages %}
+          <li><a href="?page={{ tweets.number|add:"2" }}">{{ tweets.number|add:"2" }}</a></li>
+          {% endif %}
+          {% if tweets.has_next %}
+          <li>
+            <a href="?page={{ tweets.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
     </div>
     </div>
   </div>
