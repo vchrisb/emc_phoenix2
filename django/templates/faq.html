@@ -5,6 +5,7 @@
 <div class="container">
   <div class="row row-content">
     <h1>FAQ</h1>
+    <br>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       {% for faq in faqs %}
         {% if faq.privacy == 'public' or faq.privacy == 'private' and user.is_authenticated or faq.privacy == 'public_only' and not user.is_authenticated %}

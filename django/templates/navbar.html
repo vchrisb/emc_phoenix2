@@ -22,8 +22,8 @@
         <li><a href="{% url 'tweet' %}">Feed</a></li>
         <li><a href="{% url 'agenda' %}">Agenda</a></li>
         <li><a href="{% url 'documents' %}">Documents</a></li>
-        <li><a href="{% url 'faq' %}">FAQ</a></li>
         {% endif %}
+        <li><a href="{% url 'faq' %}">FAQ</a></li>
         <li><a href="{% url 'contact' %}">Contact</a></li>
         {% if user.is_superuser %}
         <li class="dropdown">

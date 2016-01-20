@@ -2,30 +2,23 @@
 <footer>
   <div class="container">
              <div class="row bottom-70 bottom-sm-0">
-                 <div class="col-sm-3 " >
+                 <div class="col-sm-4" >
                      <div class="footer-section">
                          <h4>About Us</h4>
-                         <p><a href="overview.htm">Conference Details</a><br><br class="hidden-lg">
-                             <a href="faqs.htm">FAQ</a><br><br class="hidden-lg">
+                         <p><a href={% url 'agenda' %}>Conference Details</a><br><br class="hidden-lg">
+                             <a href={% url 'faq' %}>FAQ</a><br><br class="hidden-lg">
                              <a href="http://www.emc.com/emc-plus/index.htm" target="_blank">EMC+ News</a><br />
                              <a href="http://www.emc.com/social-emc/social.htm" target="_blank">EMC SocialSphere</a></p>
                      </div>
                  </div>
-                 <div class="col-sm-3 " >
+                 <div class="col-sm-4" >
                      <div class="footer-section">
                          <h4>Contact Us</h4>
-                         <p>Questions? Contact the EMC Phoenix Team. </p>
-                         <p>Mail: <a href="mailto:phoenix.townhall2016@emc.com">phoenix.townhall2016@emc.com</a><br><br class="hidden-lg"></p>
+                         <p>Questions?<br>
+                         <a href={% url 'contact' %}>Contact the EMC Phoenix Team.</a><br><br class="hidden-lg"></p>
                      </div>
                  </div>
-                 <div class="col-sm-3 " >
-                     <div class="footer-section">
-                         <h4>Mailing List</h4>
-                         <p>Get the latest updates from EMC World.</p>
-                         <p><a href="mailto:emcworld@EMC.com">emcworld@EMC.com</a></p>
-                     </div>
-                 </div>
-                 <div class="col-sm-3 " >
+                 <div class="col-sm-4 " >
                      <div class="footer-section last clearfix">
                          <h4>Join Our Communities</h4>
                          <p>Connect with us for all the up-to-date news about EMC.</p>
