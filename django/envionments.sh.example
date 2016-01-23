@@ -27,7 +27,6 @@ export VCAP_SERVICES='{
             "PORT": "25",
             "TLS": "True",
             "USER": "django@domain.local",
-            "DEFAULT_FROM": "noreply@domain.local"
           },
           "syslog_drain_url": ""
         },
@@ -48,8 +47,12 @@ export VCAP_SERVICES='{
           "label": "user-provided",
           "tags": [],
           "credentials": {
+            "ADMINS": "[(User, user.name@domain.local)]",
+            "DEBUG": "True",
+            "DEFAULT_FROM_EMAIL": "noreply@domain.local",
+            "DEFAULT_TO_EMAIL": "admin@domain.local",
             "SECRET_KEY": "1234-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&",
-            "DEBUG": "True"
+            "SERVER_EMAIL": "django@domain.local"
           }
       ],
       "cloudamqp": [
