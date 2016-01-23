@@ -65,3 +65,6 @@ db.sqlite.db
 
 #environment files
 envionments.sh
+
+#static content
+static_content/

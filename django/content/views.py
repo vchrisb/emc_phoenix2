@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 import os
 from django.core.mail import send_mail
-
+from phoenix.decorators import specific_verified_email_required
 from .forms import ContactForm, ContactFormSignedIn
 from .models import Featurette, FAQ
 import json
@@ -20,7 +20,7 @@ def home(request):
 
     return render(request, "home.html", context)
 
-# Create your views here.
+
 def faq(request):
 
     faq_list = FAQ.objects.filter(publish=True).order_by('position')
@@ -29,6 +29,22 @@ def faq(request):
     }
 
     return render(request, "faq.html", context)
+
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
+def accommodation(request):
+
+    context = {
+    }
+
+    return render(request, "accommodation.html", context)
+
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
+def shuttle(request):
+
+    context = {
+    }
+
+    return render(request, "shuttle.html", context)
 
 def contact(request):
     title = "Contact:"
@@ -46,16 +62,16 @@ def contact(request):
         form_email = form.cleaned_data.get("email")
         form_message = form.cleaned_data.get("message")
         form_full_name = form.cleaned_data.get("full_name")
-        from_email = form_email
+
 
         subject = 'Site contact form'
-
-        to_email = [settings.EMAIL_HOST_USER]
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to_email = [settings.DEFAULT_TO_EMAIL]
         contact_message = "%s: %s via %s" %(form_full_name, form_message, form_email)
         some_html_message = """
-        <h1>This message was send to you from %s:</h1>
+        <h1>This message was send to you from %s via %s:</h1>
         %s
-        """ %(form_full_name, form_message)
+        """ %(form_full_name, form_email, form_message)
         # send asynchronous
         send_mail(subject,
                     contact_message,

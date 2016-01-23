@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head_css %}
+<style>
+  #hbf {
+    height: 400px;
+  }
+  #tegel {
+    height: 400px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+    {% include "static_content/shuttle_content.html" %}
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+  {% include "static_content/shuttle_js.html" %}
+{% endblock %}
