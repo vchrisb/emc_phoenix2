@@ -141,15 +141,24 @@ for group in VCAP_SERVICES:
             EMAIL_HOST_USER = service['credentials']['USER']
             EMAIL_HOST_PASSWORD = service['credentials']['PASSWORD']
             EMAIL_PORT = int(service['credentials']['PORT'])
-            DEFAULT_FROM_EMAIL = service['credentials']['DEFAULT_FROM']
             if service['credentials']['TLS'] == 'True':
                 EMAIL_USE_TLS = True
             else:
                 EMAIL_USE_TLS = False
+        # sendgrid does override "mail" and will use sendgrid web API
+        elif "sendgrid" in service['name']:
+            CELERY_EMAIL_BACKEND = "sgbackend.SendGridBackend"
+            SENDGRID_USER = service['credentials']['username']
+            SENDGRID_PASSWORD = service['credentials']['password']
 
         elif "rabbitmq" in service['name']:
             BROKER_URL = service['credentials']['uri']
             EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+            CELERY_EMAIL_TASK_CONFIG = {
+                'rate_limit': '100/m',  # * CELERY_EMAIL_CHUNK_SIZE (default: 10) limit to X per minute
+            }
+
             if "cloudamqp" in VCAP_SERVICES[group]:
                 # https://www.cloudamqp.com/docs/celery.html
                 BROKER_POOL_LIMIT = 1 # Will decrease connection usage
@@ -171,6 +180,10 @@ for group in VCAP_SERVICES:
                 DEBUG = True
             else:
                 DEBUG = False
+            DEFAULT_FROM_EMAIL = service['credentials']['DEFAULT_FROM_EMAIL']
+            DEFAULT_TO_EMAIL = service['credentials']['DEFAULT_TO_EMAIL']
+            SERVER_EMAIL = service['credentials']['SERVER_EMAIL']
+            ADMINS = service['credentials']['ADMINS']
 
 AWS_AUTO_CREATE_BUCKET = True
 AWS_S3_SECURE_URLS = False
@@ -245,4 +258,4 @@ DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
 
 # restrict access to certain domains
-ALLOWED_DOMAINS = ['emc.com', 'vmware.com']
+ALLOWED_DOMAINS = ['emc.com', 'vmware.com', 'vce.com', 'rsa.com', 'virtustream.com']

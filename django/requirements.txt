@@ -15,5 +15,6 @@ markdown
 mysqlclient
 newrelic
 psycopg2
+sendgrid-django
 tweepy
 waitress

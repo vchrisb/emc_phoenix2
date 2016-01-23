@@ -1,7 +1,7 @@
 ---
 applications:
 - name: phoenix-celery
-  instances: 1
+  instances: 2
   memory: 1024M
   command: null
   buildpack: python_buildpack
@@ -11,10 +11,10 @@ applications:
   services:
   - phoenix_db
   - phoenix_ecs
-  - phoenix_mail
   - phoenix_rabbitmq
   - phoenix_twitter
   - phoenix_config
   - phoenix_newrelic
+  - sendgrid
   env:
     DISABLE_COLLECTSTATIC: '1'
