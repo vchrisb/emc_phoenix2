@@ -10,13 +10,9 @@ Leveraging:
 * REST Framework
 * [Cloud Foundry](https://run.pivotal.io)
 * Twitter Streams
-<<<<<<< HEAD
 * [New Relic](http://newrelic.com/)
 * [Papertrail](https://papertrailapp.com/)
-=======
-* New Relic
-* Sendgrid
->>>>>>> origin/master
+* [Sendgrid](https://sendgrid.com)
 
 ## Installation
 
