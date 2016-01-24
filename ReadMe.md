@@ -1,16 +1,17 @@
 # Conference App for the EMC Phoenix2 Event 2016 in Berlin 
 
 Leveraging:
-* Django 1.9
-* Python 3
+* Django
+* Python
 * Bootstrap
 * Asynchronous tasks with celery and RabbitMQ
-* S3 compatible (EMC ECS) storage backend
+* S3 compatible ([EMC ECS](https://portal.ecstestdrive.com/)) storage backend
 * Social Authentication
 * REST Framework
-* Cloud Foundry
+* [Cloud Foundry](https://run.pivotal.io)
 * Twitter Streams
-* New Relic
+* [New Relic](http://newrelic.com/)
+* [Papertrail](https://papertrailapp.com/)
 
 ## Installation
 
@@ -45,6 +46,11 @@ https://portal.ecstestdrive.com/
 ```
 #### collectstatic at client
 python manage.py collectstatic
+
+### Logging
+
+Create Account at https://papertrailapp.com and add three Services of type Cloud Foundry.  
+More information at http://help.papertrailapp.com/kb/hosting-services/cloud-foundry/
 
 ### create social authentication
 
@@ -89,6 +95,10 @@ cf cups phoenix_ecs -p '{"HOST":"object.ecstestdrive.com","ACCESS_KEY_ID":"12345
 cf cups phoenix_mail -p '{"HOST":"smtp.domain.local","USER":"django@domain.local","PASSWORD":"123456789","PORT":"25","TLS":"True", "DEFAULT_FROM":"noreply@domain.local"}'
 cf cups phoenix_twitter -p '{"CONSUMER_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","CONSUMER_SECRET":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","ACCESS_TOKEN":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","ACCESS_TOKEN_SECRET":"ABCDEFGHIJKLMNOPQRSTUVWXYZ"}'
 cf cups phoenix_config -p '{"SECRET_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","DEBUG":"False"}'
+
+cf cups phoenix_papertrail -l syslog://logs3.papertrailapp.com:12345
+cf cups phoenix_celery_papertrail -l syslog://logs3.papertrailapp.com:12346
+cf cups phoenix_watcher_papertrail -l syslog://logs3.papertrailapp.com:12347
 ```
 ##### initial push for database creation
 Script will create a superuser ``admin`` with password ``admin``

@@ -14,6 +14,7 @@ applications:
   - phoenix_rabbitmq
   - phoenix_twitter
   - phoenix_config
+  - phoenix_watcher_papertrail
   - sendgrid
   env:
     DISABLE_COLLECTSTATIC: '1'

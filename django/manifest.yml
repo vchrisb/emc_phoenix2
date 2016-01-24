@@ -13,6 +13,7 @@ applications:
   - phoenix_twitter
   - phoenix_config
   - phoenix_newrelic
+  - phoenix_papertrail
   - sendgrid
   env:
     DISABLE_COLLECTSTATIC: '1'
