@@ -1,10 +1,11 @@
 # Conference App for the EMC Phoenix2 Event 2016 in Berlin 
 
 Leveraging:
-* Django
+* [Django](https://www.djangoproject.com/)
 * Python
-* Bootstrap
-* Asynchronous tasks with celery and RabbitMQ
+* [PostgreSQL](https://www.elephantsql.com/)
+* [Bootstrap](http://getbootstrap.com/)
+* Asynchronous tasks with [Celery](http://www.celeryproject.org/) and [RabbitMQ](http://www.rabbitmq.com/)
 * S3 compatible ([EMC ECS](https://portal.ecstestdrive.com/)) storage backend
 * Social Authentication
 * REST Framework
