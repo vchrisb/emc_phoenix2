@@ -95,13 +95,11 @@ cf create-service sendgrid free sendgrid
 
 cf cups phoenix_ecs -p '{"HOST":"object.ecstestdrive.com","ACCESS_KEY_ID":"123456789@ecstestdrive.emc.com","SECRET_ACCESS_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","PUBLIC_URL":"123456789.public.ecstestdrive.com","STATIC_BUCKET":"static","MEDIA_BUCKET":"public","SECURE_BUCKET":"secure"}'
 cf cups phoenix_twitter -p '{"CONSUMER_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","CONSUMER_SECRET":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","ACCESS_TOKEN":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","ACCESS_TOKEN_SECRET":"ABCDEFGHIJKLMNOPQRSTUVWXYZ"}'
-cf cups phoenix_config -p '{"SECRET_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","DEBUG":"False"}'
+cf cups phoenix_config -p '{"SECRET_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","DEBUG":"False","DEFAULT_FROM_EMAIL":"noreply@domain.local","DEFAULT_TO_EMAIL":"admin@domain.local","SERVER_EMAIL":"django@domain.local","ADMINS":"[('Admin', 'admin@domain.local')]"}'
 
 cf cups phoenix_papertrail -l syslog://logs3.papertrailapp.com:12345
 cf cups phoenix_celery_papertrail -l syslog://logs3.papertrailapp.com:12346
 cf cups phoenix_watcher_papertrail -l syslog://logs3.papertrailapp.com:12347
-=======
-cf cups phoenix_config -p '{"SECRET_KEY":"ABCDEFGHIJKLMNOPQRSTUVWXYZ","DEBUG":"False","DEFAULT_FROM_EMAIL":"noreply@domain.local","DEFAULT_TO_EMAIL":"admin@domain.local","SERVER_EMAIL":"django@domain.local","ADMINS":"[('Admin', 'admin@domain.local')]"}'
 ```
 
 if not using ```sendgrid```
