@@ -27,10 +27,10 @@
             <li><a href="{% url 'documents' %}">Dokumente</a></li>
             <li><a href="{% url 'accommodation' %}">Unterkunft</a></li>
             <li><a href="{% url 'shuttle' %}">Shuttle Service</a></li>
-            <li><a href="{% url 'faq' %}">FAQ</a></li>
           </ul>
         </li>
         {% endif %}
+        <li><a href="{% url 'faq' %}">FAQ</a></li>
         <li><a href="{% url 'contact' %}">Kontakt</a></li>
         {% if user.is_authenticated %}
           <li class="dropdown">
