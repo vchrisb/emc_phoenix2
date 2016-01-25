@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+{% load markdown_filter %}
 {% block content %}
 <div class="container">
   <div class="row row-content">
@@ -19,7 +19,7 @@
               </div>
               <div id="collapse{{forloop.counter}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{forloop.counter}}">
                 <div class="panel-body">
-                  {{ faq.answer }}
+                  {{ faq.answer|markdownify|safe }}
                 </div>
               </div>
             </div>

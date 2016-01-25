@@ -1,4 +1,5 @@
 from django import template
+import bleach
 import markdown
 from content import urlify
 
@@ -6,12 +7,21 @@ register = template.Library()
 
 @register.filter
 def markdownify(text):
-    # safe_mode governs how the function handles raw HTML
-    return markdown.markdown(text, safe_mode='escape')
+    tags = ['p'] + bleach.ALLOWED_TAGS
+    html = markdown.markdown(text)
+    html = bleach.clean(html, tags=tags)
+    return html
 
 @register.filter
 def markdown_urlify(text):
-    # safe_mode governs how the function handles raw HTML
-    urlify_ext = urlify.URLifyExtension()
-    extensions = [urlify_ext]
-    return markdown.markdown(text, extensions, safe_mode='escape')
+    tags = ['p'] + bleach.ALLOWED_TAGS
+    html = markdown.markdown(text)
+    html = bleach.clean(html, tags=tags)
+    html = bleach.linkify(html)
+    return html
+
+@register.filter
+def urlify(text):
+    html = bleach.clean(text)
+    html = bleach.linkify(html)
+    return html
