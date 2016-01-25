@@ -6,7 +6,7 @@ from content import urlify
 register = template.Library()
 
 # add <p> to allowed tags
-tags = ['p'] + bleach.ALLOWED_TAGS
+tags = ['p','h1','h2','h3'] + bleach.ALLOWED_TAGS
 
 @register.filter
 def markdownify(text):
