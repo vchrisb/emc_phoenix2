@@ -15,6 +15,9 @@ Leveraging:
 * [Papertrail](https://papertrailapp.com/)
 * [Sendgrid](https://sendgrid.com)
 
+Overview:
+![Ovierview](/django/static_custom/img/app_overview.png)
+
 ## Installation
 
 Simplest way to test this app is to use ``Vagrant`` with ``vagrant up``. This will create a Fedora Virtualbox with all required packages and a python virtual environment.
