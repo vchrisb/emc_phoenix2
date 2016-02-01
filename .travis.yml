@@ -23,7 +23,7 @@ matrix:
 # command to install dependencies
 install:
   - if [[ "$DJANGO" != "latest" ]] ; then pip install -q Django==$DJANGO; fi
-  - pip install -r requirements.txt
+  - pip install -r django/requirements.txt
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 # command to run tests
