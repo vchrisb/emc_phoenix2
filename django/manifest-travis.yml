@@ -1,7 +1,7 @@
 ---
 applications:
-- name: phoenix-travis
-  host: phoenix2-travis
+- name: phoenix-travis2
+  host: phoenix2-travis2
   instances: 2
   memory: 256M
   command: null
