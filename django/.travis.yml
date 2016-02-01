@@ -35,3 +35,4 @@ script:
   - python manage.py version
   - python manage.py test --noinput
   - python manage.py migrate --noinput
+
