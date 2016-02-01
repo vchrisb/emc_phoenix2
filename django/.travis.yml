@@ -13,7 +13,6 @@ env:
     - SECRET_KEY='aadc-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&'
     - DEBUG='False'
   matrix:
-    - DJANGO=1.7.10
     - DJANGO=1.8.9
     - DJANGO=1.9.2
     - DJANGO=latest
@@ -22,10 +21,6 @@ matrix:
   allow_failures:
     - python: "nightly"
   exclude:
-    - python: "3.5"
-      env: DJANGO=1.7.10
-    - python: "nightly"
-      env: DJANGO=1.7.10
     - python: "nightly"
       env: DJANGO=1.8.9
 
