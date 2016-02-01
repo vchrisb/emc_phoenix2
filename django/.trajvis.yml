@@ -1,0 +1,30 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "nightly" # currently points to 3.6-dev
+
+services:
+  - postgresql
+
+env:
+  global:
+    - DATABASE_URL='postgres://postgres:@localhost:/travis_ci_test'
+  matrix:
+    - DJANGO=1.9.2
+    - DJANGO=latest
+
+matrix:
+  allow_failures:
+    - python: "nightly"
+
+# command to install dependencies
+install:
+  - if [[ "$DJANGO" != "latest" ]] ; then pip install -q Django==$DJANGO; fi
+  - pip install -r requirements.txt
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+# command to run tests
+script:
+  - python manage.py version
+  - python manage.py test --noinput
