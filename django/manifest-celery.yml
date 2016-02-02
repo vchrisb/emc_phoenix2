@@ -3,7 +3,6 @@ applications:
 - name: phoenix-celery
   instances: 2
   memory: 1024M
-  command: null
   buildpack: python_buildpack
   command: "newrelic-admin run-program celery -A phoenix worker -l info --without-gossip --without-mingle --without-heartbeat"
   no-route: true

@@ -1,13 +1,22 @@
 ---
+path: django
+instances: 1
+buildpack: python_buildpack
+memory: 128M
+services:
+- phoenix_db_travis
+- phoenix_ecs_travis
+- phoenix_rabbitmq_travis
+- phoenix_twitter_travis
+- phoenix_config_travis
+- sendgrid
+env:
+  DISABLE_COLLECTSTATIC: '1'
 applications:
-- name: phoenix-travis2
-  path: django
-  host: phoenix2-travis2
-  instances: 2
-  memory: 256M
-  command: null
-  buildpack: python_buildpack
-  services:
-  - sendgrid
-  env:
-    DISABLE_COLLECTSTATIC: '1'
+- name: phoenix2-travis
+  host: phoenix2-travis
+  command: "bash ./travis.sh"
+- name: phoenix2-celery-travis
+  no-route: true
+  health-check-type: none
+  command: "celery -A phoenix worker -l info --without-gossip --without-mingle --without-heartbeat"

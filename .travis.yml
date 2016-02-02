@@ -5,11 +5,10 @@ python:
   - nightly
 services:
   - postgresql
+  - rabbitmq
 env:
   global:
     - DATABASE_URL='postgres://postgres:@localhost:/travis_ci_test'
-    - SECRET_KEY='aadc-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&'
-    - DEBUG='True'
   matrix:
     - DJANGO=1.9.2
     - DJANGO=latest
