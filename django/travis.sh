@@ -5,7 +5,7 @@ python manage.py sqlflush | python manage.py dbshell
 echo "------ create database tables ------"
 python manage.py migrate --noinput
 
-echo "------ create default admin user ------"
+echo "------ create default superuser ------"
 python manage.py shell < superuser.py
 
 echo "------ starting gunicorn  ------"

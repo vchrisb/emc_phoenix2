@@ -31,4 +31,4 @@ urlpatterns = [
     url(r'^agenda$', agenda.views.agenda, name='agenda'),
     url(r'^documents$', vault.views.documents, name='documents'),
     url(r'^documents/(?P<uuid>[0-9a-z-]+)$', vault.views.document, name='document'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # serving MEDIA in development

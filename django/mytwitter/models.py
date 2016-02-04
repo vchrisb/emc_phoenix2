@@ -5,8 +5,9 @@ from django.core.files.base import ContentFile
 import uuid
 import io, os
 
-from phoenix.custom_storages import SecureStorage
 from django_resized import ResizedImageField
+from django.conf import settings
+from django.core.files.storage import get_storage_class
 
 # Create your models here.
 class Tweet(models.Model):
@@ -28,6 +29,7 @@ def TweetPictureName(instance, filename):
     return '{}/{}.{}'.format('TweetPictures', str(uuid.uuid4()), extension)
 
 class TweetPic(models.Model):
+    SecureStorage = get_storage_class(settings.SECURE_FILE_STORAGE)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tweet = models.ForeignKey(Tweet, related_name='pics')
     picture = models.ImageField(upload_to=TweetPictureName, storage=SecureStorage())

@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 import datetime
-from phoenix.custom_storages import SecureStorage
 
 # Create your models here.
 class Entry(models.Model):

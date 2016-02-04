@@ -20,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -119,81 +118,99 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-# add S3 compatible storge
-STATICFILES_STORAGE = 'phoenix.custom_storages.StaticStorage'
-DEFAULT_FILE_STORAGE = 'phoenix.custom_storages.MediaStorage'
-
 # Load VCAP_SERVICES
-VCAP_SERVICES = json.loads(os.environ['VCAP_SERVICES'])
-for group in VCAP_SERVICES:
-    for service in VCAP_SERVICES[group]:
-        if "ecs" in service['name']:
-            AWS_S3_HOST = service['credentials']['HOST']
-            AWS_ACCESS_KEY_ID = service['credentials']['ACCESS_KEY_ID']
-            AWS_SECRET_ACCESS_KEY = service['credentials']['SECRET_ACCESS_KEY']
-            S3_PUBLIC_URL = service['credentials']['PUBLIC_URL']
-            STATIC_BUCKET_NAME = service['credentials']['STATIC_BUCKET']
-            MEDIA_BUCKET_NAME = service['credentials']['MEDIA_BUCKET']
-            SECURE_BUCKET_NAME = service['credentials']['SECURE_BUCKET']
+if "VCAP_SERVICES" in os.environ:
+    VCAP_SERVICES = json.loads(os.environ['VCAP_SERVICES'])
+    for group in VCAP_SERVICES:
+        for service in VCAP_SERVICES[group]:
+            if "ecs" in service['name']:
+                AWS_S3_HOST = service['credentials']['HOST']
+                AWS_ACCESS_KEY_ID = service['credentials']['ACCESS_KEY_ID']
+                AWS_SECRET_ACCESS_KEY = service['credentials']['SECRET_ACCESS_KEY']
+                S3_PUBLIC_URL = service['credentials']['PUBLIC_URL']
+                STATIC_BUCKET_NAME = service['credentials']['STATIC_BUCKET']
+                MEDIA_BUCKET_NAME = service['credentials']['MEDIA_BUCKET']
+                SECURE_BUCKET_NAME = service['credentials']['SECURE_BUCKET']
 
-        elif "mail" in service['name']:
-            EMAIL_HOST = service['credentials']['HOST']
-            EMAIL_HOST_USER = service['credentials']['USER']
-            EMAIL_HOST_PASSWORD = service['credentials']['PASSWORD']
-            EMAIL_PORT = int(service['credentials']['PORT'])
-            if service['credentials']['TLS'] == 'True':
-                EMAIL_USE_TLS = True
-            else:
-                EMAIL_USE_TLS = False
-        # sendgrid does override "mail" and will use sendgrid web API
-        elif "sendgrid" in service['name']:
-            CELERY_EMAIL_BACKEND = "sgbackend.SendGridBackend"
-            SENDGRID_USER = service['credentials']['username']
-            SENDGRID_PASSWORD = service['credentials']['password']
+                # add S3 compatible storge
+                STATICFILES_STORAGE = 'phoenix.custom_storages.StaticStorage'
+                DEFAULT_FILE_STORAGE = 'phoenix.custom_storages.MediaStorage'
+                SECURE_FILE_STORAGE = 'phoenix.custom_storages.SecureStorage'
 
-        elif "rabbitmq" in service['name']:
-            BROKER_URL = service['credentials']['uri']
-            EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+                STATIC_CUSTOM_DOMAIN = '%s.%s' %(STATIC_BUCKET_NAME,S3_PUBLIC_URL)
+                STATIC_URL = "http://%s/" % STATIC_CUSTOM_DOMAIN
 
-            CELERY_EMAIL_TASK_CONFIG = {
-                'rate_limit': '100/m',  # * CELERY_EMAIL_CHUNK_SIZE (default: 10) limit to X per minute
-            }
+                MEDIA_CUSTOM_DOMAIN = '%s.%s' %(MEDIA_BUCKET_NAME,S3_PUBLIC_URL)
+                MEDIA_URL = "http://%s/" % MEDIA_CUSTOM_DOMAIN
 
-            if "cloudamqp" in VCAP_SERVICES[group]:
-                # https://www.cloudamqp.com/docs/celery.html
-                BROKER_POOL_LIMIT = 1 # Will decrease connection usage
-                BROKER_HEARTBEAT = 30 # Will detect stale connections faster
-                BROKER_CONNECTION_TIMEOUT = 30 # May require a long timeout due to Linux DNS timeouts etc
-                CELERY_RESULT_BACKEND = None
-                CELERY_SEND_EVENTS = False # Will not create celeryev.* queues
-                CELERY_EVENT_QUEUE_EXPIRES = 60 # Will delete all celeryev. queues without consumers after 1 minute.
+                # django-storages settings
+                AWS_AUTO_CREATE_BUCKET = True
+                AWS_S3_SECURE_URLS = False
+                AWS_QUERYSTRING_AUTH = False
 
-        elif "twitter" in service['name']:
-            TWITTER_CONSUMER_KEY = service['credentials']['CONSUMER_KEY']
-            TWITTER_CONSUMER_SECRET = service['credentials']['CONSUMER_SECRET']
-            TWITTER_ACCESS_TOKEN = service['credentials']['ACCESS_TOKEN']
-            TWITTER_ACCESS_TOKEN_SECRET = service['credentials']['ACCESS_TOKEN_SECRET']
+            elif "mail" in service['name']:
+                EMAIL_HOST = service['credentials']['HOST']
+                EMAIL_HOST_USER = service['credentials']['USER']
+                EMAIL_HOST_PASSWORD = service['credentials']['PASSWORD']
+                EMAIL_PORT = int(service['credentials']['PORT'])
+                if service['credentials']['TLS'] == 'True':
+                    EMAIL_USE_TLS = True
+                else:
+                    EMAIL_USE_TLS = False
+            # sendgrid does override "mail" and will use sendgrid web API
+            elif "sendgrid" in service['name']:
+                CELERY_EMAIL_BACKEND = "sgbackend.SendGridBackend"
+                SENDGRID_USER = service['credentials']['username']
+                SENDGRID_PASSWORD = service['credentials']['password']
 
-        elif "config" in service['name']:
-            SECRET_KEY = service['credentials']['SECRET_KEY']
-            if service['credentials']['DEBUG'] == 'True':
-                DEBUG = True
-            else:
-                DEBUG = False
-            DEFAULT_FROM_EMAIL = service['credentials']['DEFAULT_FROM_EMAIL']
-            DEFAULT_TO_EMAIL = service['credentials']['DEFAULT_TO_EMAIL']
-            SERVER_EMAIL = service['credentials']['SERVER_EMAIL']
-            ADMINS = service['credentials']['ADMINS']
+            elif "rabbitmq" in service['name']:
+                BROKER_URL = service['credentials']['uri']
+                EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
-AWS_AUTO_CREATE_BUCKET = True
-AWS_S3_SECURE_URLS = False
-AWS_QUERYSTRING_AUTH = False
+                CELERY_EMAIL_TASK_CONFIG = {
+                    'rate_limit': '100/m',  # * CELERY_EMAIL_CHUNK_SIZE (default: 10) limit to X per minute
+                }
 
-STATIC_CUSTOM_DOMAIN = '%s.%s' %(STATIC_BUCKET_NAME,S3_PUBLIC_URL)
-STATIC_URL = "http://%s/" % STATIC_CUSTOM_DOMAIN
-#STATIC_URL = "http://dummy.local/"
-MEDIA_CUSTOM_DOMAIN = '%s.%s' %(MEDIA_BUCKET_NAME,S3_PUBLIC_URL)
-MEDIA_URL = "http://%s/" % MEDIA_CUSTOM_DOMAIN
+                if "cloudamqp" in VCAP_SERVICES[group]:
+                    # https://www.cloudamqp.com/docs/celery.html
+                    BROKER_POOL_LIMIT = 1 # Will decrease connection usage
+                    BROKER_HEARTBEAT = 30 # Will detect stale connections faster
+                    BROKER_CONNECTION_TIMEOUT = 30 # May require a long timeout due to Linux DNS timeouts etc
+                    CELERY_RESULT_BACKEND = None
+                    CELERY_SEND_EVENTS = False # Will not create celeryev.* queues
+                    CELERY_EVENT_QUEUE_EXPIRES = 60 # Will delete all celeryev. queues without consumers after 1 minute.
+
+            elif "twitter" in service['name']:
+                TWITTER_CONSUMER_KEY = service['credentials']['CONSUMER_KEY']
+                TWITTER_CONSUMER_SECRET = service['credentials']['CONSUMER_SECRET']
+                TWITTER_ACCESS_TOKEN = service['credentials']['ACCESS_TOKEN']
+                TWITTER_ACCESS_TOKEN_SECRET = service['credentials']['ACCESS_TOKEN_SECRET']
+
+            elif "config" in service['name']:
+                SECRET_KEY = service['credentials']['SECRET_KEY']
+                if service['credentials']['DEBUG'] == 'True':
+                    DEBUG = True
+                else:
+                    DEBUG = False
+                DEFAULT_FROM_EMAIL = service['credentials']['DEFAULT_FROM_EMAIL']
+                DEFAULT_TO_EMAIL = service['credentials']['DEFAULT_TO_EMAIL']
+                SERVER_EMAIL = service['credentials']['SERVER_EMAIL']
+                ADMINS = service['credentials']['ADMINS']
+else:
+    # for development, don't run migrations!
+    DEBUG = True
+    SECRET_KEY = "DEVELOPMENT"
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    SECURE_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    # custom_storages.py is referenced in migrations
+    STATIC_BUCKET_NAME = None
+    STATIC_CUSTOM_DOMAIN = None
+    MEDIA_BUCKET_NAME = None
+    MEDIA_CUSTOM_DOMAIN = None
+    SECURE_BUCKET_NAME = None
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_custom'),
