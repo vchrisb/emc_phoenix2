@@ -21,9 +21,11 @@ install:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 script:
+  - celery -A phoenix worker -l info --detach
   - python django/manage.py migrate --noinput
   - python django/manage.py test --noinput
   - python django/manage.py collectstatic --noinput
+  - cf --version
 deploy:
   edge: true
   provider: cloudfoundry
