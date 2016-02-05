@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "------ delete database tables ------"
-python manage.py sqlflush | python manage.py dbshell
+python wipe_psql_database.py --force
 
 echo "------ create database tables ------"
 python manage.py migrate --noinput
@@ -8,5 +8,5 @@ python manage.py migrate --noinput
 echo "------ create default superuser ------"
 python manage.py shell < superuser.py
 
-echo "------ starting gunicorn  ------"
+echo "------ starting waitress  ------"
 waitress-serve --port=$PORT phoenix.wsgi:application

@@ -25,7 +25,6 @@ script:
   - python django/manage.py migrate --noinput
   - python django/manage.py test --noinput
   - python django/manage.py collectstatic --noinput
-  - cf --version
 deploy:
   edge: true
   provider: cloudfoundry
