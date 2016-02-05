@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 
 parser = argparse.ArgumentParser(description='Drop all tables from PostgreSQL Database. Connection string is specified in os variable "DATABASE_URL"')
 parser.add_argument('--force', help='Force execution', action="store_true")
+parser.add_argument('--dropschema', help='wipe by dropping schema', action="store_true")
 
 args = parser.parse_args()
 
@@ -31,11 +32,18 @@ except:
 
 # Drop all tables from a given database
 try:
-    cur.execute("DROP SCHEMA public CASCADE")
-    cur.execute("CREATE SCHEMA public")
-    cur.execute("GRANT ALL ON SCHEMA public TO postgres")
-    cur.execute("GRANT ALL ON SCHEMA public TO public")
-    cur.execute("COMMENT ON SCHEMA public IS 'standard public schema'")
+    if args.dropschema:
+        cur.execute("DROP SCHEMA public CASCADE")
+        cur.execute("CREATE SCHEMA public")
+        cur.execute("GRANT ALL ON SCHEMA public TO postgres")
+        cur.execute("GRANT ALL ON SCHEMA public TO public")
+        cur.execute("COMMENT ON SCHEMA public IS 'standard public schema'")
+    else:
+        cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name")
+        rows = cur.fetchall()
+        for row in rows:
+            print ("dropping table: %s" %(row[0]))
+            cur.execute("DROP TABLE " + row[0] + " CASCADE")
     cur.close()
     conn.close()
     print('Wiped database: %s' %(database_name))
