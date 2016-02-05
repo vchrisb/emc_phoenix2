@@ -10,19 +10,23 @@ parser.add_argument('--dropschema', help='wipe by dropping schema', action="stor
 
 args = parser.parse_args()
 
+try:
+    database_url = os.environ['DATABASE_URL']
+    result = urlparse(database_url)
+    database_name = result.path[1:]
+except:
+    raise SystemExit("Error: ", sys.exc_info()[1])
+
 if not args.force:
     choice = None
     while choice not in ('y', 'n'):
-        choice = input('Do you really want to wipe the database? (y/n)')
+        choice = input('Do you really want to wipe the database: "%s"? (y/n)' %(database_name))
 
     if choice == 'n':
         raise SystemExit("aborted by user input")
 
 # Connect to database
 try:
-    database_url = os.environ['DATABASE_URL']
-    result = urlparse(database_url)
-    database_name = result.path[1:]
     conn = psycopg2.connect(database_url)
     conn.set_isolation_level(0)
     cur = conn.cursor()

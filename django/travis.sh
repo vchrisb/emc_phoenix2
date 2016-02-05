@@ -2,6 +2,9 @@
 echo "------ delete database tables ------"
 python wipe_psql_database.py --force
 
+echo "------ delete all keys in bucket ------"
+python wipe_bucket.py --force
+
 echo "------ create database tables ------"
 python manage.py migrate --noinput
 
