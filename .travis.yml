@@ -24,6 +24,7 @@ script:
   - celery -A phoenix worker -l info --detach --workdir="$TRAVIS_BUILD_DIR/django"
   - python django/manage.py migrate --noinput
   - python django/manage.py test --noinput
+before_deploy:
   - python django/manage.py collectstatic --noinput
 deploy:
   edge: true
