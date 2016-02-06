@@ -33,7 +33,7 @@ conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
 bucket = conn.get_bucket(BUCKET_NAME)
 keys = bucket.get_all_keys()
 if not keys:
-    print("no keys to delete")
+    print("no keys to delete in bucket: %s" %(BUCKET_NAME))
     raise SystemExit()
 result = bucket.delete_keys(keys)
 if not result.deleted:

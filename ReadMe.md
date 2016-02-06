@@ -18,6 +18,7 @@ Leveraging:
 * [New Relic](http://newrelic.com/)
 * [Papertrail](https://papertrailapp.com/)
 * [Sendgrid](https://sendgrid.com)
+* [Travis CI](https://travis-ci.org)
 
 Overview:
 ![Ovierview](/django/static_custom/img/app_overview.png)
@@ -146,3 +147,7 @@ dropdb phoenix
 sudo -u postgres createdb -U postgres --locale=en_US.utf-8 -E utf-8 -O vagrant phoenix -T template0
 pg_restore -d phoenix psqldump.tar
 ```
+
+#### Travis CI
+
+This app is using [Travis CI](https://travis-ci.org) for continuous integration and continuous deployment to Cloud Foundry.
