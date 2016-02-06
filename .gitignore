@@ -66,5 +66,7 @@ db.sqlite.db
 #environment files
 envionments.sh
 
-#static content
+#django content
+static/
+media/
 static_content/

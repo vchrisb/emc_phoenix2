@@ -1,4 +1,8 @@
-# Conference App for the EMC Phoenix2 Event 2016 in Berlin 
+#emc_phoenix2 [![Build Status](https://travis-ci.org/vchrisb/emc_phoenix2.svg?branch=master)](https://travis-ci.org/vchrisb/emc_phoenix2)
+
+==========
+
+## Conference App for the EMC Phoenix2 Event 2016 in Berlin 
 
 Leveraging:
 * [Django](https://www.djangoproject.com/)

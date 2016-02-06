@@ -31,7 +31,7 @@ export VCAP_SERVICES='{
           "syslog_drain_url": ""
         },
         {
-          "name": "phoenix_twitter",
+          "name": "twitter",
           "label": "user-provided",
           "tags": [],
           "credentials": {
@@ -43,7 +43,7 @@ export VCAP_SERVICES='{
           "syslog_drain_url": ""
         },
         {
-          "name": "phoenix_config",
+          "name": "config",
           "label": "user-provided",
           "tags": [],
           "credentials": {
@@ -53,9 +53,7 @@ export VCAP_SERVICES='{
             "DEFAULT_TO_EMAIL": "admin@domain.local",
             "SECRET_KEY": "1234-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&",
             "SERVER_EMAIL": "django@domain.local"
-          }
-      ],
-      "cloudamqp": [
+        },
         {
           "name": "rabbitmq",
           "credentials": {

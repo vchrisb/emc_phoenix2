@@ -1,5 +1,6 @@
 from django.db import models
-from phoenix.custom_storages import SecureStorage
+from django.conf import settings
+from django.core.files.storage import get_storage_class
 from django_resized import ResizedImageField
 
 # Create your models here.
@@ -10,7 +11,8 @@ class Featurette(models.Model):
         ('public', 'Public'),
         ('private', 'Private'),
     )
-
+    SecureStorage = get_storage_class(settings.SECURE_FILE_STORAGE)
+    
     created_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True)
     heading = models.CharField(max_length=100)
     content = models.TextField()

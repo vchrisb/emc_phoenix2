@@ -2,5 +2,5 @@
 echo "------ Create database tables ------"
 python manage.py migrate --noinput
 
-echo "------ starting gunicorn  ------"
+echo "------ starting waitress  ------"
 waitress-serve --port=$PORT phoenix.wsgi:application

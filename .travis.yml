@@ -1,0 +1,43 @@
+language: python
+python:
+  - '3.4'
+  - '3.5'
+  - nightly
+services:
+  - postgresql
+  - rabbitmq
+env:
+  global:
+    - DATABASE_URL='postgres://postgres:@localhost:/travis_ci_test'
+  matrix:
+    - DJANGO=1.9.2
+    - DJANGO=latest
+matrix:
+  allow_failures:
+    - python: nightly
+install:
+  - if [[ "$DJANGO" != "latest" ]] ; then pip install -q Django==$DJANGO; fi
+  - pip install -r django/requirements.txt
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+script:
+  - celery -A phoenix worker -l info --detach --workdir="$TRAVIS_BUILD_DIR/django"
+  - python django/manage.py migrate --noinput
+  - python django/manage.py test --noinput
+before_deploy:
+  - python django/manage.py collectstatic --noinput
+deploy:
+  edge: true
+  provider: cloudfoundry
+  username:
+    secure: sQ4V9Ao2KzG4Kl6aaFhOxGLoHFYK+O7wBuebKxj5XIOCfhOpDNQPpoySuKP8OZNX0gsJ9Cw4xAveneyyEYp/VZSoMkX9W5BYXh1h7K2nyanoJVuZEviq2SkTwYr6l+XRvlB3kJu9QSWUfrinWVgCgSNJ1OaI22E/OBR1Mr7hEVpQFRl9TPGihHORc2RmCIdySjGNcgyuqZpJT6MB7oVMyC8dQwZs/qZL9aIXNqtr4T48ZjP3enUdsQ8gTM4BdiK79/otF17Fzy/jEGquwofYt9X8lB9hqqA7SR3Klg2x51dR4u7LSGHpGR+z++UwDfPlE/R5glxm+GR0EgqunL0KKCjfYBunf5w57yJonldHDuTIGpRTmi71OeGtlZyRrEWcUup4byrX2+e9KaCoeUvPV0JAZMSdBdCWrqsgudH++/59A9HiPZHEQMQm/VDKEAMPyQilsQ+FX9MqY0twfVrkBJwfNnRIoxcgsKPPXF822naKPJg0849uC6/4lBKvjYMJV97gHZVCVU+dVkH9sANP09BvCwEhh5e2vt5gStpKCrfi3/NOtR4b5T76nCUQN4/QV1NA+JLCpGISn7h9ukODhj6MsQapLNPR4Cs13E/z1rfYoAEO5vHT7rJFz/bQrfVW6zRWwXjqDRUQwNu+1ic1BlODgYSX4N8Coq0SErLV3gQ=
+  password:
+    secure: Qku90snqS7Dv1y1QQGWa7gmLVAUfvgW6GSfNarB7NWfU1PfsMuFKBAelQZayDRt6AN0+ZCW7EhOV8lK9uOsHRQLprKmv4kZPqIcUdFWV+OpW0aTv1BjlJQccq5UPQbu322tACZSEcKcNKkj61/dWlrBVn0cKg5Tp+GTtbH+nqoo22uR0Dv6Qz05WG2dfZoZiHDSuyPxzd6v7FJ8SmUJm0jx48g2TRVB9TmGor5X5EUBtyZzWSNdbQUkzZefGon6ddyIKwfyF2dzMbpztEW6fXZ+OQZ1jm7o6lFS4HSnloPjG/YWRli+ZSmKD3aAdHPoO4OyIqNrkAeD0dpTm0X9su+V3RhS0Uq5uTBVdnO7rws0HrdkPX3xh0PHOUAlSUxt1hOdCwYjyqkHyQCBJ3+XVMmPtoKdhB78mw/v00Zo6u60cuvzNcVDes7ldFNxojid0NDMwwQIdpzsV2H0LvX+pBiJG+rxpQonWw4FIa6gsA4aOLJWFgyBrHsDySC5ttfSNOo0oARB/II9Etw9OAHIlK8HE8199It0E5fqiQmHwKJx9C0omOMMGQucruI1fKtSCozHvBGFx/Psq03Q2i3a+I6S+9hMuvFGNga3jy+bLvsEgj5OF/7b/mlqgNhWRfJqpBITlGZhxAUwemG6Lsr5CbdOl5HEGiY4YPImBl/MfG0k=
+  api: https://api.run.pivotal.io
+  organization: EVP
+  space: EMC
+  manifest: manifest-travis.yml
+  on:
+    branch: master
+    condition: "$DJANGO = '1.9.2'"
+    python: '3.5'
