@@ -37,6 +37,6 @@ deploy:
   space: EMC
   manifest: manifest-travis.yml
   on:
-    branch: travis
+    branch: master
     condition: "$DJANGO = '1.9.2'"
     python: '3.5'
