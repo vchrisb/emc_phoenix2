@@ -8,10 +8,6 @@
 Vagrant.configure(2) do |config|
 
   config.vm.box = "box-cutter/fedora23"
-
-  config.vm.synced_folder "django", "/home/vagrant/django",
-	create: true,
-    mount_options: ["dmode=755,fmode=664"]
   
   config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.vm.provider "virtualbox" do |vb|

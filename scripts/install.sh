@@ -31,9 +31,9 @@ sudo dnf -y install libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms
 # create python3 virtual environment
 pyvenv /home/vagrant/dj_pyvenv
 source /home/vagrant/dj_pyvenv/bin/activate
-pip3 install -r /vagrant/django/requirements.txt
+pip3 install -r /vagrant/requirements.txt
 
 # vagrant user default into virtual environment
 echo "source /home/vagrant/dj_pyvenv/bin/activate" >> /home/vagrant/.bashrc
-echo "source /home/vagrant/django/envionments.sh" >> /home/vagrant/.bashrc
-echo "cd /home/vagrant/django" >> /home/vagrant/.bashrc
+echo "source /vagrant/scripts/envionments.sh" >> /home/vagrant/.bashrc
+echo "cd /vagrant" >> /home/vagrant/.bashrc
