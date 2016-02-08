@@ -2,7 +2,7 @@
 
 ==========
 
-## Conference App for the EMC Phoenix2 Event 2016 in Berlin 
+## Conference App for the EMC Phoenix2 Event 2016 in Berlin
 
 Leveraging:
 * [Django](https://www.djangoproject.com/)
@@ -21,7 +21,7 @@ Leveraging:
 * [Travis CI](https://travis-ci.org)
 
 Overview:
-![Ovierview](/django/static_custom/img/app_overview.png)
+![Overview](/static_custom/img/app_overview.png)
 
 ## Installation
 
@@ -118,20 +118,25 @@ cf cups phoenix_mail -p '{"HOST":"smtp.domain.local","USER":"django@domain.local
 
 ##### initial push for database creation
 Script will create a superuser ``admin`` with password ``admin``
-```cf push --no-route -c "bash ./init_db.sh" -i 1```
+```cf push phoenix --no-route -c "bash scripts/init_db.sh" -i 1```
 
 ##### migrate database
-```cf push phoenix-migrate --no-route -c "bash ./migrate.sh" -i 1  
+```cf push phoenix-migrate --no-route -c "bash scripts/migrate.sh" -i 1  
 cf delete phoenix-migrate```
 
 ##### push app
-```cf push```
+```cf push phoenix```
+
+For a non-disruptive push
+```cf rename phoenix phoenix-old
+cf push phoenix
+cf delete phoenix-old --f```
 
 ##### push celery
-```cf push -f manifest-celery.yml```
+```cf push phoenix-celery```
 
 ##### push twitter-watcher
-```cf push -f manifest-twitter-watcher.yml```
+```cf push phoenix-twitter-watcher```
 
 #### Backup & Restore Database
 

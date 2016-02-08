@@ -1,0 +1,38 @@
+<script>
+function initMap() {
+var myLatLngHbf = {lat: 52.526691, lng: 13.368166};
+
+var hbf = new google.maps.Map(document.getElementById('hbf'), {
+zoom: 16,
+center: myLatLngHbf
+});
+
+var marker = new google.maps.Marker({
+position: myLatLngHbf,
+map: hbf,
+label: 'Busparkplatz',
+title: 'Busparkplatz'
+});
+
+var tegel = new google.maps.Map(document.getElementById('tegel'), {
+zoom: 18,
+center: {lat: 52.554007, lng: 13.292535}
+});
+
+var markervan = new google.maps.Marker({
+position: {lat: 52.554391, lng: 13.293151},
+map: tegel,
+label: 'Van',
+title: 'Van'
+});
+
+var markerbus = new google.maps.Marker({
+position: {lat: 52.553681, lng: 13.292054},
+map: tegel,
+label: 'Bus',
+title: 'Bus'
+});
+
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAE1ey_-hiH_DI6J39vjI51rgM1zHXl2Pk&signed_in=true&callback=initMap"></script>

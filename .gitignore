@@ -69,4 +69,6 @@ envionments.sh
 #django content
 static/
 media/
-static_content/
+
+#make sure eol is LF
+text eol=lf
