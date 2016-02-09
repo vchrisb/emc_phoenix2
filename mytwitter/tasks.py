@@ -35,24 +35,24 @@ def save_tweet(tweetobj):
         # print("no picture")
         # return  # no picture
 
-    # if len(image_list) < 2:
-    #     print ("less than 2 pictures" + str(len(image_list)))
+    # if len(image_urls) < 2:
+    #     print ("less than 2 pictures" + str(len(image_urls)))
     #     return
     # create tweet
-    newtweet = Tweet(twitter_id=twitter_id, username=username, screenname=screenname, text=text, created_at=created_at, from_twitter=True)
-    newtweet.save()
-    if image_urls:
-        for image_url in image_urls:
-            #print(image_url)
-            image = retrieve_image(image_url)
-            image = process_image(image) # returns jpg
-            image_name = "tmp.jpg" # will be renamed by model save function
-            newpic = TweetPic()
-            newpic.tweet = newtweet
-            newpic.picture.save(image_name,image,save=False)
-            newpic.save()
-
-    print("saved tweet with id %s" %(str(twitter_id)))
+    newtweet, created  = Tweet.objects.get_or_create(twitter_id=twitter_id, username=username, screenname=screenname, text=text, created_at=created_at, from_twitter=True)
+    if created:
+        if image_urls:
+            for image_url in image_urls:
+                image = retrieve_image(image_url)
+                image = process_image(image) # returns jpg
+                image_name = "tmp.jpg" # will be renamed by model save function
+                newpic = TweetPic()
+                newpic.tweet = newtweet
+                newpic.picture.save(image_name,image,save=False)
+                newpic.save()
+        print("saved tweet with id %s" %(str(twitter_id)))
+    else:
+        print(" tweet with id %s already exists" %(str(twitter_id)))
 
 import urllib.request
 from PIL import ImageFilter, Image
