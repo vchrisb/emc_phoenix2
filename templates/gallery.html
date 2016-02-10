@@ -7,18 +7,20 @@
 {% block content %}
 <div class="container">
   <div class="row row-content">
-    <div id="blueimp-gallery" class="blueimp-gallery">
-      <div class="slides"></div>
-      <h3 class="title"></h3>
-      <a class="prev">‹</a>
-      <a class="next">›</a>
-      <a class="close">×</a>
-      <a class="play-pause"></a>
-      <ol class="indicator"></ol>
+    <div class="col-sm-12 col-md-12">
+      <div id="blueimp-gallery" class="blueimp-gallery">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+      </div>
+      <div id="links">
+      </div>
+      <br>
     </div>
-    <div id="links">
-    </div>
-    <br>
   </div>
 </div>
 {% endblock %}
@@ -29,7 +31,7 @@
   function load_pictures() {
     //'use strict';
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/tweetpic/',
+        url: "{% url 'tweetpic-list' %}",
         type : "GET", // http method
         dataType: 'json'
     }).done(function (obj) {

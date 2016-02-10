@@ -8,7 +8,7 @@ echo "------ delete all keys in bucket ------"
 python $DIR/wipe_bucket.py --force
 
 echo "------ create database tables ------"
-python $DIR/manage.py migrate --noinput
+python manage.py migrate --noinput
 
 echo "------ create default superuser ------"
 python $DIR/superuser.py

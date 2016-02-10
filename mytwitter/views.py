@@ -56,6 +56,26 @@ def tweet(request):
     return render(request, "tweet.html", context)
 
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
+def tweetgallery(request):
+    tweetpic_list = TweetPic.objects.all()
+    paginator = Paginator(tweetpic_list, 25) # Show 25 tweets per page
+    page = request.GET.get('page')
+
+    try:
+        tweetpics = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        tweetpics = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        tweetpics = paginator.page(paginator.num_pages)
+
+    context = {
+        "tweetpics": tweetpics,
+    }
+    return render(request, "tweetgallery.html", context)
+
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def TweetPicView(request, uuid):
     TweetPicObj = get_object_or_404(TweetPic, pk=uuid)
     size = ''
