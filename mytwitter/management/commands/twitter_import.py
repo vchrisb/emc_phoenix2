@@ -14,6 +14,7 @@ class Command(BaseCommand):
         group = parser.add_mutually_exclusive_group(required=True)
         group.add_argument('--query', dest='query', type=str)
         group.add_argument('--id', dest='id', nargs='*', type=str)
+        parser.add_argument('--limit',dest='limit', type=int, required=False, default=10000)
 
     def handle(self, *args, **options):
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
@@ -21,7 +22,7 @@ class Command(BaseCommand):
         api = tweepy.API(auth)
 
         if options['query']:
-            for tweet in tweepy.Cursor(api.search,q=options['query'], rpp=100, result_type="recent", include_entities=True, lang="en").items():
+            for tweet in tweepy.Cursor(api.search,q=options['query'], rpp=100, result_type="recent", include_entities=True, lang="en").items(options['limit']):
                tweet = json.loads(json.dumps(tweet._json))
                save_tweet.delay(tweet)
 

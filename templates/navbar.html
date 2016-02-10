@@ -13,20 +13,17 @@
         <img alt="Projekt Phoenix II" src="{% static 'img/logo_emc_main.jpg' %}" width="160" height="75" class="img-responsive hidden-xs">
         <img alt="Projekt Phoenix II" src="{% static 'img/logo_emc_main_mobile.jpg' %}" width="160" height="75" class="img-responsive visible-xs-block">
       </a>
-      <p class="navbar-text hidden-xs">Januar 25-27, 2016</p>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% url 'home' %}">Home</a></li>
         {% if user.is_authenticated %}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Konferenz <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Phoenix <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="{% url 'tweet' %}">Feed</a></li>
-            <li><a href="{% url 'agenda' %}">Agenda</a></li>
             <li><a href="{% url 'documents' %}">Dokumente</a></li>
-            <li><a href="{% url 'accommodation' %}">Unterkunft</a></li>
-            <li><a href="{% url 'shuttle' %}">Shuttle Service</a></li>
+            <li><a href="{% url 'gallery' %}">Bildergalerie</a></li>
           </ul>
         </li>
         {% endif %}
