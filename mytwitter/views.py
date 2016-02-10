@@ -17,7 +17,7 @@ from PIL import Image
 def tweet(request):
     title = "Tweet:"
     tweet_list = Tweet.objects.all().order_by('-created_at')
-    paginator = Paginator(tweet_list, 25) # Show 25 tweets per page
+    paginator = Paginator(tweet_list, 10) # Show 10 tweets per page
     page = request.GET.get('page')
 
     try:
