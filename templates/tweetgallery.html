@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head_css %}
+<link href="{% static 'css/blueimp-gallery.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-sm-12 col-md-12 text-center">
+      <div id="blueimp-gallery" class="blueimp-gallery">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+      </div>
+      <div id="links">
+        {% for tweetpic in tweetpics %}
+        <a class="post" href="{% url 'tweetpic' tweetpic.id %}?size=large">
+          <img src="{{ tweetpic.pic_thumb.url }}">
+        </a>
+        {% endfor %}
+      </div>
+      <div id="pagination" class="text-center">
+        <nav>
+          <ul class="pagination">
+            {% if tweetpics.has_previous %}
+            <li>
+              <a href="?page={{ tweetpics.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% endif %}
+            {% if tweetpics.number|add:"-2" > 0 %}
+            <li><a href="?page={{ tweetpics.number|add:"-2" }}">{{ tweetpics.number|add:"-2" }}</a></li>
+            {% endif %}
+            {% if tweetpics.number|add:"-1" > 0 %}
+            <li><a href="?page={{ tweetpics.number|add:"-1" }}">{{ tweetpics.number|add:"-1" }}</a></li>
+            {% endif %}
+            <li class="active"><a href="?page={{ tweetpics.number }}">{{ tweetpics.number }}</a></li>
+            {% if tweetpics.number|add:"1" <= tweetpics.paginator.num_pages %}
+            <li><a href="?page={{ tweetpics.number|add:"1" }}">{{ tweetpics.number|add:"1" }}</a></li>
+            {% endif %}
+            {% if tweetpics.number|add:"2" <= tweetpics.paginator.num_pages %}
+            <li><a href="?page={{ tweetpics.number|add:"2" }}">{{ tweetpics.number|add:"2" }}</a></li>
+            {% endif %}
+            {% if tweetpics.has_next %}
+            <li>
+              <a href="?page={{ tweetpics.next_page_number }}" aria-label="Next" class="next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/blueimp-gallery.min.js' %}"></script>
+<script src="{% static 'js/jquery-ias.min.js' %}"></script>
+<script>
+document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event, continuous: false},
+        links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+};
+var ias = jQuery.ias({
+  container:  '#links',
+  item:       '.post',
+  pagination: '#pagination',
+  next:       '.next'
+});
+
+// Add a loader image which is displayed during loading
+ias.extension(new IASSpinnerExtension());
+// Add a text when there are no more pages left to load
+ias.extension(new IASNoneLeftExtension({text: "You reached the end"}));
+</script>
+
+{% endblock %}

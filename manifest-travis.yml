@@ -1,5 +1,4 @@
 ---
-path: django
 instances: 1
 buildpack: python_buildpack
 memory: 128M
@@ -15,7 +14,7 @@ env:
 applications:
 - name: phoenix2-travis
   host: phoenix2-travis
-  command: "bash ./travis.sh"
+  command: "bash ./scripts/travis.sh"
 - name: phoenix2-celery-travis
   no-route: true
   health-check-type: none

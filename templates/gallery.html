@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head_css %}
+<link href="{% static 'css/blueimp-gallery.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-sm-12 col-md-12">
+      <div id="blueimp-gallery" class="blueimp-gallery">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+      </div>
+      <div id="links">
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+  load_pictures()
+  function load_pictures() {
+    //'use strict';
+    $.ajax({
+        url: "{% url 'tweetpic-list' %}",
+        type : "GET", // http method
+        dataType: 'json'
+    }).done(function (obj) {
+        var linksContainer = $('#links');
+        $.each(obj.results, function (index, tweetpic) {
+          //console.log(tweetpic.picture)
+          $('<a/>')
+            .append($('<img>').prop('src', tweetpic.pic_thumb))
+            .prop('href', tweetpic.pic_large)
+            //.prop('title', photo.title)
+            .attr('data-gallery', '')
+            .appendTo(linksContainer);
+        });
+    });
+  }
+  </script>
+  <script src="{% static 'js/blueimp-gallery.min.js' %}"></script>
+  <script>
+  document.getElementById('links').onclick = function (event) {
+      event = event || window.event;
+      var target = event.target || event.srcElement,
+          link = target.src ? target.parentNode : target,
+          options = {index: link, event: event},
+          links = this.getElementsByTagName('a');
+      blueimp.Gallery(links, options);
+  };
+  </script>
+{% endblock %}

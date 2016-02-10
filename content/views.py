@@ -46,6 +46,14 @@ def shuttle(request):
 
     return render(request, "shuttle.html", context)
 
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
+def gallery(request):
+
+    context = {
+    }
+
+    return render(request, "gallery.html", context)
+
 def contact(request):
     title = "Contact:"
     if request.user.is_authenticated():
