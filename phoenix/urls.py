@@ -9,6 +9,7 @@ import content.views
 import mytwitter.views
 import agenda.views
 import vault.views
+import whiteboard.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -28,9 +29,11 @@ urlpatterns = [
     url(r'^captcha/', include('captcha.urls')),
     url(r'^primes$', content.views.primes, name='primes'),
     url(r'^tweets$', mytwitter.views.tweet, name='tweet'),
-    url(r'^tweetgallery$', mytwitter.views.tweetgallery, name='tweetgallery'),
     url(r'^tweets/picture/(?P<uuid>[0-9a-z-]+)$', mytwitter.views.TweetPicView, name='tweetpic'),
+    url(r'^tweetgallery$', mytwitter.views.tweetgallery, name='tweetgallery'),
     url(r'^agenda$', agenda.views.agenda, name='agenda'),
     url(r'^documents$', vault.views.documents, name='documents'),
     url(r'^documents/(?P<uuid>[0-9a-z-]+)$', vault.views.document, name='document'),
+    url(r'^whiteboards$', whiteboard.views.whiteboard, name='whiteboard'),
+    url(r'^whiteboards/image/(?P<uuid>[0-9a-z-]+)$', whiteboard.views.WhiteboardImgView, name='whiteboardimg'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # serving MEDIA in development

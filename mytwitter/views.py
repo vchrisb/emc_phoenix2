@@ -57,7 +57,7 @@ def tweet(request):
 
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def tweetgallery(request):
-    tweetpic_list = TweetPic.objects.all()
+    tweetpic_list = TweetPic.objects.all().prefetch_related('tweet').order_by('-tweet__created_at')
     paginator = Paginator(tweetpic_list, 25) # Show 25 tweets per page
     page = request.GET.get('page')
 

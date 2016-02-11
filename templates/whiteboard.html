@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 {% block head_css %}
+
 <link href="{% static 'css/blueimp-gallery.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-datepicker3.css' %}" rel="stylesheet">
 <style>
 .blueimp-gallery > .description {
   position: absolute;
@@ -19,8 +22,15 @@
 {% block content %}
 <div class="container">
   <div class="row row-content">
-    <div class="col-sm-12 col-md-12 text-center">
-      <div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="col-sm-4 col-md-4">
+        <h3>Cloud Native Pitch Challenge</h3>
+        <p>Was müsst ihr tun? Ganz einfach! Uploaded bitte für jeden in Q1 gehalten Pitch ein Bild des Whiteboards mit Account-Namen, Datum und einer kurzen Beschreibung des Termins. Fertig!</p>
+        {% if form %}
+        {% crispy form %}
+        {% endif %}
+    </div>
+    <div class="col-sm-8 col-md-8 text-center">
+      <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
         <div class="slides"></div>
         <h3 class="title"></h3>
         <p class="description"></p>
@@ -30,38 +40,38 @@
         <a class="play-pause"></a>
       </div>
       <div id="links">
-        {% for tweetpic in tweetpics %}
-        <a class="post" href="{% url 'tweetpic' tweetpic.id %}?size=large" title="{% if tweetpic.tweet.user %}{{ tweetpic.tweet.user.get_full_name }}{% else %}{{ tweetpic.tweet.username }}{% endif %}" data-description="{{ tweetpic.tweet.text }}">
-          <img class="thumb" src="{{ tweetpic.pic_thumb.url }}">
+        {% for whiteboard in whiteboards %}
+        <a class="post" href="{% url 'whiteboardimg' whiteboard.id %}?size=large" title="{{ whiteboard.user.get_full_name }}" data-description="{{ whiteboard.account }}: {{ whiteboard.text }}">
+          <img class="thumb" src="{{ whiteboard.img_thumb.url }}">
         </a>
         {% endfor %}
       </div>
       <div id="pagination" class="text-center">
         <nav>
           <ul class="pagination">
-            {% if tweetpics.has_previous %}
+            {% if whiteboards.has_previous %}
             <li>
-              <a href="?page={{ tweetpics.previous_page_number }}" aria-label="Previous">
+              <a href="?page={{ whiteboards.previous_page_number }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             {% endif %}
-            {% if tweetpics.number|add:"-2" > 0 %}
-            <li><a href="?page={{ tweetpics.number|add:"-2" }}">{{ tweetpics.number|add:"-2" }}</a></li>
+            {% if whiteboards.number|add:"-2" > 0 %}
+            <li><a href="?page={{ whiteboards.number|add:"-2" }}">{{ whiteboards.number|add:"-2" }}</a></li>
             {% endif %}
-            {% if tweetpics.number|add:"-1" > 0 %}
-            <li><a href="?page={{ tweetpics.number|add:"-1" }}">{{ tweetpics.number|add:"-1" }}</a></li>
+            {% if whiteboards.number|add:"-1" > 0 %}
+            <li><a href="?page={{ whiteboards.number|add:"-1" }}">{{ whiteboards.number|add:"-1" }}</a></li>
             {% endif %}
-            <li class="active"><a href="?page={{ tweetpics.number }}">{{ tweetpics.number }}</a></li>
-            {% if tweetpics.number|add:"1" <= tweetpics.paginator.num_pages %}
-            <li><a href="?page={{ tweetpics.number|add:"1" }}">{{ tweetpics.number|add:"1" }}</a></li>
+            <li class="active"><a href="?page={{ whiteboards.number }}">{{ whiteboards.number }}</a></li>
+            {% if whiteboards.number|add:"1" <= whiteboards.paginator.num_pages %}
+            <li><a href="?page={{ whiteboards.number|add:"1" }}">{{ whiteboards.number|add:"1" }}</a></li>
             {% endif %}
-            {% if tweetpics.number|add:"2" <= tweetpics.paginator.num_pages %}
-            <li><a href="?page={{ tweetpics.number|add:"2" }}">{{ tweetpics.number|add:"2" }}</a></li>
+            {% if whiteboards.number|add:"2" <= whiteboards.paginator.num_pages %}
+            <li><a href="?page={{ whiteboards.number|add:"2" }}">{{ whiteboards.number|add:"2" }}</a></li>
             {% endif %}
-            {% if tweetpics.has_next %}
+            {% if whiteboards.has_next %}
             <li>
-              <a href="?page={{ tweetpics.next_page_number }}" aria-label="Next" class="next">
+              <a href="?page={{ whiteboards.next_page_number }}" aria-label="Next" class="next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
@@ -78,6 +88,12 @@
 {% block javascript %}
 <script src="{% static 'js/blueimp-gallery.min.js' %}"></script>
 <script src="{% static 'js/jquery-ias.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $('.dateinput').datepicker({ format: "mm/dd/yyyy", autoclose: true });
+});
+</script>
 <script>
 document.getElementById('links').onclick = function (event) {
     event = event || window.event;

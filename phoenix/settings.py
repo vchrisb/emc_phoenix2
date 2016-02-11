@@ -53,7 +53,8 @@ INSTALLED_APPS = (
     'content',
     'mytwitter',
     'agenda',
-    'vault'
+    'vault',
+    'whiteboard'
 )
 
 SITE_ID = 1
