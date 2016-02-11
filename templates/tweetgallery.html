@@ -19,7 +19,7 @@
       <div id="links">
         {% for tweetpic in tweetpics %}
         <a class="post" href="{% url 'tweetpic' tweetpic.id %}?size=large">
-          <img src="{{ tweetpic.pic_thumb.url }}">
+          <img class="thumb" src="{{ tweetpic.pic_thumb.url }}">
         </a>
         {% endfor %}
       </div>
