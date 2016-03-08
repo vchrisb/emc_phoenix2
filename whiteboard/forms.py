@@ -19,6 +19,6 @@ class WhiteboardForm(forms.ModelForm):
         self.helper.form_action = 'whiteboard'
         self.helper.layout = Layout(
             Field('account'),
-            Field('date', placeholder='mm/dd/yyy'),
+            Field('date', placeholder='mm/dd/yyyy'),
             Field('text', rows="6")
             )
