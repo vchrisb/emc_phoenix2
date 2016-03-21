@@ -132,6 +132,7 @@ if "VCAP_SERVICES" in os.environ:
                 STATIC_BUCKET_NAME = service['credentials']['STATIC_BUCKET']
                 MEDIA_BUCKET_NAME = service['credentials']['MEDIA_BUCKET']
                 SECURE_BUCKET_NAME = service['credentials']['SECURE_BUCKET']
+                SECURE_BUCKET_EXPIRE = 1800 #seconds has to be larger than the highest cache value
 
                 # add S3 compatible storge
                 STATICFILES_STORAGE = 'phoenix.custom_storages.StaticStorage'
@@ -197,6 +198,21 @@ if "VCAP_SERVICES" in os.environ:
                 DEFAULT_TO_EMAIL = service['credentials']['DEFAULT_TO_EMAIL']
                 SERVER_EMAIL = service['credentials']['SERVER_EMAIL']
                 ADMINS = service['credentials']['ADMINS']
+
+            elif "memcach" in service['name']:
+                CACHES = {
+                         'default': {
+                            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+                            'BINARY': True,
+                            'LOCATION': service['credentials']['servers'].replace(',', ';'),
+                            'USERNAME': service['credentials']['username'],
+                            'PASSWORD': service['credentials']['password'],
+                            'OPTIONS': {
+                                'ketama': True,
+                                'tcp_nodelay': True,
+                            }
+                         }
+                }
 else:
     # for development, don't run migrations!
     DEBUG = True
@@ -212,6 +228,7 @@ else:
     MEDIA_BUCKET_NAME = None
     MEDIA_CUSTOM_DOMAIN = None
     SECURE_BUCKET_NAME = None
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_custom'),

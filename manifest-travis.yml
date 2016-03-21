@@ -8,6 +8,7 @@ services:
 - phoenix_rabbitmq_travis
 - phoenix_twitter_travis
 - phoenix_config_travis
+- phoenix_memcached_travis
 - sendgrid
 env:
   DISABLE_COLLECTSTATIC: '1'

@@ -20,5 +20,5 @@ class SecureStorage(S3BotoStorage):
     bucket_name = settings.SECURE_BUCKET_NAME
     querystring_auth = True
     secure_urls = True
-    querystring_expire = 300
+    querystring_expire = settings.SECURE_BUCKET_EXPIRE
     default_acl = "private"

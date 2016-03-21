@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.decorators.cache import cache_page
 import os
 from django.core.mail import send_mail
 from phoenix.decorators import specific_verified_email_required
@@ -11,6 +12,7 @@ from .models import Featurette, FAQ
 import json
 
 # Create your views here.
+@cache_page(60 * 15)
 def home(request):
 
     featurette_list = Featurette.objects.filter(publish=True).order_by('position')
@@ -20,7 +22,7 @@ def home(request):
 
     return render(request, "home.html", context)
 
-
+@cache_page(60 * 15)
 def faq(request):
 
     faq_list = FAQ.objects.filter(publish=True).order_by('position')
@@ -30,6 +32,7 @@ def faq(request):
 
     return render(request, "faq.html", context)
 
+@cache_page(60 * 15)
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def accommodation(request):
 
@@ -38,6 +41,7 @@ def accommodation(request):
 
     return render(request, "accommodation.html", context)
 
+@cache_page(60 * 15)
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def shuttle(request):
 
@@ -46,6 +50,7 @@ def shuttle(request):
 
     return render(request, "shuttle.html", context)
 
+@cache_page(60 * 5)
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def gallery(request):
 
@@ -54,6 +59,7 @@ def gallery(request):
 
     return render(request, "gallery.html", context)
 
+@cache_page(60 * 15)
 def contact(request):
     title = "Contact:"
     if request.user.is_authenticated():

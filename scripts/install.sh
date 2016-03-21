@@ -17,7 +17,7 @@ sudo systemctl enable rabbitmq-server
 sudo systemctl start rabbitmq-server
 
 # install and configure memcached
-sudo dnf -y install memcached
+sudo dnf -y install memcached libmemcached-dev
 sudo systemctl enable memcached.service
 sudo systemctl start memcached.service
 

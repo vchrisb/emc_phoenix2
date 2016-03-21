@@ -6,11 +6,12 @@ python:
 services:
   - postgresql
   - rabbitmq
+  - memcached
 env:
   global:
     - DATABASE_URL='postgres://postgres:@localhost:/travis_ci_test'
   matrix:
-    - DJANGO=1.9.2
+    - DJANGO=1.9.4
     - DJANGO=latest
 matrix:
   allow_failures:
@@ -39,5 +40,5 @@ deploy:
   manifest: manifest-travis.yml
   on:
     branch: master
-    condition: "$DJANGO = '1.9.2'"
+    condition: "$DJANGO = '1.9.4'"
     python: '3.5'
