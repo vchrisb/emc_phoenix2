@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 from .forms import WhiteboardForm

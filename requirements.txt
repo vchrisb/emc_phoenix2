@@ -7,6 +7,7 @@ django-celery-email
 django-cleanup
 django-crispy-forms
 django-filter
+django-pylibmc
 django-resized
 django-simple-captcha
 djangorestframework
@@ -16,6 +17,7 @@ markdown
 mysqlclient
 newrelic
 psycopg2
+pylibmc
 sendgrid-django
 tweepy
 waitress
