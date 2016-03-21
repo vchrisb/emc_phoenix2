@@ -60,6 +60,15 @@ def gallery(request):
     return render(request, "gallery.html", context)
 
 @cache_page(60 * 15)
+@specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
+def sme(request):
+
+    context = {
+    }
+
+    return render(request, "sme.html", context)
+
+@cache_page(60 * 15)
 def contact(request):
     title = "Contact:"
     if request.user.is_authenticated():

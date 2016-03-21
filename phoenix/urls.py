@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^$', content.views.home, name='home'),
     url(r'^contact/$', content.views.contact, name='contact'),
     url(r'^faq/$', content.views.faq, name='faq'),
+    url(r'^sme/$', content.views.sme, name='sme'),
     # url(r'^accommodation/$', content.views.accommodation, name='accommodation'),
     # url(r'^shuttle/$', content.views.shuttle, name='shuttle'),
     # url(r'^gallery/$', content.views.gallery, name='gallery'),

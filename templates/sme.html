@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head_css %}
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- Plugins CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link id="theme-style" rel="stylesheet" href="{% static 'css/sme.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-content">
+
+    <section id="about" class="about section">
+            <div class="container">
+                <h2 class="title text-center">Für welches Thema suchst du einen Experten?</h2>
+                <p class="intro text-center">Um einen erfahrenen Experten zu finden ist es wichtig das Projekt einzugrenzen</p>
+                <div class="row">
+                    <div class="item col-md-4 col-sm-6 col-xs-12">
+                        <div class="icon-holder">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="content contentFilter" data-filter-type="topic" data-filter-content="sddc">
+                            <h3 class="sub-title"><a class="scrollto" href="#features">Software Defined Data Center</h3></a>
+                            <p>ViPR, ScaleIO, Automatisierung</p>
+                        </div><!--//content-->
+                    </div><!--//item-->
+                    <div class="item col-md-4 col-sm-6 col-xs-12">
+                        <div class="icon-holder">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <div class="content contentFilter" data-filter-type="topic" data-filter-content="datalake">
+                            <h3 class="sub-title"><a class="scrollto" href="#features">Data Lake</h3></a>
+                            <p>ODaten sollen schwimmen.</p>
+                        </div><!--//content-->
+                    </div><!--//item-->
+                    <div class="item col-md-4 col-sm-6 col-xs-12">
+                        <div class="icon-holder">
+                            <i class="fa fa-crosshairs"></i>
+                        </div>
+                        <div class="content contentFilter" data-filter-type="topic" data-filter-content="bigdata">
+                            <h3 class="sub-title"><a class="scrollto" href="#features">Big Data</h3></a>
+                            <p>Von Elefnaten und Ihren Freunden.</p>
+                        </div><!--//content-->
+                    </div><!--//item-->
+                    <div class="clearfix visible-md"></div>
+                    <div class="item col-md-4 col-sm-6 col-xs-12">
+                        <div class="icon-holder">
+                            <i class="fa fa-tablet"></i>
+                        </div>
+                        <div class="content contentFilter" data-filter-type="topic" data-filter-content="object">
+                            <h3 class="sub-title"><a class="scrollto" href="#features">Object</h3></a>
+                            <p>ECS, Centera und co..</p>
+                        </div><!--//content-->
+                    </div><!--//item-->
+                    <div class="item col-md-4 col-sm-6 col-xs-12">
+                        <div class="icon-holder">
+                            <i class="fa fa-code"></i>
+                        </div>
+                        <div class="content contentFilter" data-filter-type="topic" data-filter-content="container">
+                            <h3 class="sub-title"><a class="scrollto" href="#features">Container</h3></a>
+                            <p>my Docker is my castle</p>
+                        </div><!--//content-->
+                    </div><!--//item-->
+                    <div class="item col-md-4 col-sm-6 col-xs-12">
+                        <div class="icon-holder">
+                            <i class="fa fa-coffee"></i>
+                        </div>
+                        <div class="content contentFilter" data-filter-type="topic" data-filter-content="flash">
+                            <h3 class="sub-title"><a class="scrollto" href="#features">Flash</h3></a>
+                            <p>Ahaa.</p>
+                        </div><!--//content-->
+                    </div><!--//item-->
+                </div><!--//row-->
+            </div><!--//container-->
+        </section><!--//about-->
+
+       <!-- ******FEATURES****** -->
+        <section id="features" class="features section">
+            <div class="container text-center">
+                <h2 class="title">Mit wem wollen wir das Thema besprechen</h2>
+                <ul class="feature-list list-unstyled">
+                     <li><a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="clevel" href="#docs">C-Level</a>
+    	             <a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="architect" href="#docs">Architect</a>
+                     <a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="visionair" href="#docs">Visionair</a>
+                     <a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="stakeholder" href="#docs">Stakeholder</a>
+                    <a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="admin" href="#docs">Admin Level</a>
+                     <a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="partner" href="#docs">Partner</a>
+                     <a class="btn btn-cta-secondary contentFilter scrollto" data-filter-type="role" data-filter-content="serviceprovider" href="#docs">Service Provider</a></li>
+                </ul>
+            </div><!--//container-->
+        </section><!--//features-->
+
+        <!-- ******DOCS****** -->
+        <section id="docs" class="docs section">
+            <div class="container">
+                <div class="docs-inner">
+                <h2 class="title text-center">Get Started</h2>
+                <div class="block">
+                    <h3 class="sub-title text-center" id="topicHeading">Sprich doch mal mit</h3>
+
+
+
+
+     <div class="row">
+         <div class="item col-md-4 col-sm-6 col-xs-12 filterItem" data-topic="sddc" data-role="admin architect serviceprovider">
+             <div class="icon-holder">
+                <img class="img-circle center-block" width="143" src="https://raw.githubusercontent.com/dentee/sme/gh-pages/public/images/stephan.jpg" alt="" />
+             </div>
+             <div class="content">
+                 <h3 class="sub-title">Stephan Michard</h3>
+                 <p>Beschreibung zu Stephan</p>
+             </div><!--//content-->
+         </div><!--//item-->
+
+         <div class="item col-md-4 col-sm-6 col-xs-12 filterItem" data-topic="bigdata" data-role="visionair architect partner">
+             <div class="icon-holder">
+                <img class="img-circle center-block" width="143" src="https://raw.githubusercontent.com/dentee/sme/gh-pages/public/images/chris.jpeg" alt="" />
+             </div>
+             <div class="content">
+                 <h3 class="sub-title">Chris Banck</h3>
+                 <p>Beschreibung zu Chris</p>
+             </div><!--//content-->
+         </div><!--//item-->
+
+         <div class="item col-md-4 col-sm-6 col-xs-12 filterItem" data-topic="sddc" data-role="visionair clevel stakeholder">
+             <div class="icon-holder">
+                <img class="img-circle center-block" width="143" src="https://raw.githubusercontent.com/dentee/sme/gh-pages/public/images/matthias.jpg" alt="" />
+             </div>
+             <div class="content">
+                 <h3 class="sub-title">Matthias Zastrow</h3>
+                 <p>Beschreibung zu Matthias</p>
+             </div><!--//content-->
+         </div><!--//item-->
+
+         <div class="item col-md-4 col-sm-6 col-xs-12 filterItem" data-topic="sddc" data-role="admin architect partner">
+             <div class="icon-holder">
+                <img class="img-circle center-block" width="143" src="https://raw.githubusercontent.com/dentee/sme/gh-pages/public/images/tobi.jpg" alt="" />
+             </div>
+             <div class="content">
+                 <h3 class="sub-title">Tobias Bischoff</h3>
+                 <p>Beschreibung zu Tobias</p>
+             </div><!--//content-->
+         </div><!--//item-->
+
+         <div class="item col-md-4 col-sm-6 col-xs-12 filterItem" data-topic="sddc bigdata" data-role="admin architect serviceprovider">
+             <div class="icon-holder">
+                <img class="img-circle center-block" width="143" src="https://raw.githubusercontent.com/dentee/sme/gh-pages/public/images/deniz.jpg" alt="" />
+             </div>
+             <div class="content">
+                 <h3 class="sub-title">Deniz Teoman</h3>
+                 <ul class="social-icons list-inline">
+                     <li><a href="https://twitter.com/dentee" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                     <li><a href="https://www.facebook.com/teodata" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                     <li class="last"><a href="https://www.xing.com/profile/Deniz_Teoman"><i class="fa fa-xing"></i></a></li>
+    				 <li class="last"><a href="mailto: hallo@denizteoman.com"><i class="fa fa-envelope"></i></a></li>
+                 </ul>
+    			 <p>Beschreibung zu Deniz</p>
+
+             </div><!--//content-->
+         </div><!--//item-->
+
+
+
+     </div><!--//row-->
+
+      <p>>Die Liste bietet Dir einen Überblick über passende Subject Matter Experts. Durch einen Klick auf den von Dir favorisierten Experten bekommst du im Abschnitt "Wo kommt mein Experte her?" Geoinformationen zum Standort des Experten.</p>
+                </div><!--//block-->
+
+               </section><!--//docs->
+
+        <!-- ******LICENSE****** -->
+        <section id="license" class="license section">
+            <div class="container">
+                <div class="license-inner">
+                <h2 class="title text-center">Wo kommt mein Experte her?</h2>
+                    <div class="info">
+    					<div class="embed-responsive embed-responsive-4by3">
+    					    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d564305.0565306285!2d9.960918504387667!3d52.21739813022315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sde!2sde!4v1456430556045" frameborder="0" style="border:0" allowfullscreen></iframe>
+    					</div>
+    					                <div class="cta-container">
+                        <div class="speech-bubble">
+                            <p class="intro">Wenn mehr als einer der SME für Deine Anforderung passt, schau doch bitte wer den kürzesten Weg zu deinem Projekt hat.</p>
+                            <div class="icon-holder  text-center"><i class="fa fa-smile-o"></i></div>
+                        </div><!--//speech-bubble-->
+                        <div class="btn-container  text-center">
+
+                        </div><!--//btn-container-->
+                    </div><!--//cta-container-->
+                </div><!--//license-inner-->
+            </div><!--//container-->
+        </section><!--//how-->
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.js"></script>
+<script>
+jQuery(document).ready(function($) {
+
+    /* ======= Scrollspy ======= */
+    $('body').scrollspy({ target: '#header', offset: 400});
+
+    /* ======= Fixed header when scrolled ======= */
+
+    $(window).bind('scroll', function() {
+         if ($(window).scrollTop() > 50) {
+             $('#header').addClass('navbar-fixed-top');
+         }
+         else {
+             $('#header').removeClass('navbar-fixed-top');
+         }
+    });
+
+    /* ======= ScrollTo ======= */
+    $('a.scrollto').on('click', function(e){
+
+        //store hash
+        var target = this.hash;
+
+        e.preventDefault();
+
+		$('body').scrollTo(target, 800, {offset: -70, 'axis':'y', easing:'easeOutQuad'});
+        //Collapse mobile menu after clicking
+		if ($('.navbar-collapse').hasClass('in')){
+			$('.navbar-collapse').removeClass('in').addClass('collapse');
+		}
+
+	});
+
+});
+</script>
+
+<script>
+filters = {
+	"role" : "reset",
+	"topic" : "reset"
+};
+
+filterItems = function(){
+	$(".filterItem").show();
+	for(filter in filters){
+		if(filters[filter] !== "reset"){
+			$(".filterItem:not([data-" + filter + "*='" + filters[filter] + "'])").hide();
+		}
+	}
+};
+
+$(document).ready(function(){
+	$(".contentFilter").click(function(){
+		var type = $(this).data("filter-type");
+		var content = $(this).data("filter-content");
+		filters[type] = content.replace(/ /g, "_").toLowerCase();
+		filterItems();
+	});
+});
+</script>
+{% endblock %}
