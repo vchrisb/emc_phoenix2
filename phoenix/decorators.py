@@ -29,11 +29,12 @@ def specific_verified_email_required(function=None,
             context ={
                 'domains': domains
             }
-            if not EmailAddress.objects.filter(Q(user=request.user), reduce(lambda x, y: (x | y), [Q(email__iendswith=('@' + domain)) for domain in domains])).exists():
-                return render(request, 'account/email_required_domain.html', context)
-            elif not EmailAddress.objects.filter(Q(user=request.user, verified=True), reduce(lambda x, y: (x | y), [Q(email__iendswith=('@' + domain)) for domain in domains])).exists():
-                #send_email_confirmation(request, request.user)
-                return render(request, 'account/verified_email_required_domain.html', context)
+            if not request.user.is_superuser:            
+                if not EmailAddress.objects.filter(Q(user=request.user), reduce(lambda x, y: (x | y), [Q(email__iendswith=('@' + domain)) for domain in domains])).exists():
+                    return render(request, 'account/email_required_domain.html', context)
+                elif not EmailAddress.objects.filter(Q(user=request.user, verified=True), reduce(lambda x, y: (x | y), [Q(email__iendswith=('@' + domain)) for domain in domains])).exists():
+                    #send_email_confirmation(request, request.user)
+                    return render(request, 'account/verified_email_required_domain.html', context)
             return view_func(request, *args, **kwargs)
         return _wrapped_view
 
