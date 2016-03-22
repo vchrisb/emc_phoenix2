@@ -200,19 +200,27 @@ if "VCAP_SERVICES" in os.environ:
                 ADMINS = service['credentials']['ADMINS']
 
             elif "memcach" in service['name']:
-                CACHES = {
-                         'default': {
-                            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-                            'BINARY': True,
-                            'LOCATION': service['credentials']['servers'].replace(',', ';'),
-                            'USERNAME': service['credentials']['username'],
-                            'PASSWORD': service['credentials']['password'],
-                            'OPTIONS': {
-                                'ketama': True,
-                                'tcp_nodelay': True,
-                            }
-                         }
-                }
+                if "credentials" in service:
+                    CACHES = {
+                             'default': {
+                                'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+                                'BINARY': True,
+                                'LOCATION': service['credentials']['servers'].replace(',', ';'),
+                                'USERNAME': service['credentials']['username'],
+                                'PASSWORD': service['credentials']['password'],
+                                'OPTIONS': {
+                                    'ketama': True,
+                                    'tcp_nodelay': True,
+                                }
+                             }
+                    }
+                else:
+                    CACHES = {
+                             'default': {
+                                'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+                             }
+                    }
+                
 else:
     # for development, don't run migrations!
     DEBUG = True

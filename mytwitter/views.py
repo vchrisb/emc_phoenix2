@@ -9,9 +9,12 @@ from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from phoenix.decorators import specific_verified_email_required
 
+from django.views.decorators.cache import cache_page
+
 from .tasks import process_image
 from PIL import Image
 
+@cache_page(60 * 2)
 @transaction.atomic
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def tweet(request):
@@ -55,6 +58,7 @@ def tweet(request):
     }
     return render(request, "tweet.html", context)
 
+@cache_page(60 * 15)
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def tweetgallery(request):
     tweetpic_list = TweetPic.objects.all().prefetch_related('tweet').order_by('-tweet__created_at')

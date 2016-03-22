@@ -3,16 +3,20 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
+#cache
 from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_control
+
 import os
 from django.core.mail import send_mail
-from phoenix.decorators import specific_verified_email_required
+from phoenix.decorators import specific_verified_email_required, cache_on_auth
 from .forms import ContactForm, ContactFormSignedIn
 from .models import Featurette, FAQ
 import json
 
 # Create your views here.
-@cache_page(60 * 15)
+@cache_on_auth(60 * 15)
 def home(request):
 
     featurette_list = Featurette.objects.filter(publish=True).order_by('position')
@@ -22,7 +26,8 @@ def home(request):
 
     return render(request, "home.html", context)
 
-@cache_page(60 * 15)
+@cache_on_auth(60 * 15)
+#@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def faq(request):
 
     faq_list = FAQ.objects.filter(publish=True).order_by('position')
@@ -59,7 +64,7 @@ def gallery(request):
 
     return render(request, "gallery.html", context)
 
-@cache_page(60 * 15)
+@cache_on_auth(60 * 15)
 def contact(request):
     title = "Contact:"
     if request.user.is_authenticated():
