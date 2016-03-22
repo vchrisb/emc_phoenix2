@@ -8,6 +8,7 @@ django-cleanup
 django-crispy-forms
 django-filter
 django-pylibmc
+django-redis
 django-resized
 django-simple-captcha
 djangorestframework

@@ -200,6 +200,8 @@ if "VCAP_SERVICES" in os.environ:
                 ADMINS = service['credentials']['ADMINS']
 
             elif "memcach" in service['name']:
+                SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+                SESSION_CACHE_ALIAS = "default"
                 if "credentials" in service:
                     CACHES = {
                              'default': {
@@ -220,7 +222,24 @@ if "VCAP_SERVICES" in os.environ:
                                 'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
                              }
                     }
-                
+            elif "redis" in service['name']:
+                SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+                SESSION_CACHE_ALIAS = "default"
+                if service['credentials']['password']:
+                    redis_location = "redis://" + service['credentials']['password'] + '@' + service['credentials']['hostname'] + ':' + service['credentials']['port'] + '/0'
+                else:
+                    redis_location = "redis://" + service['credentials']['hostname'] + ':' + service['credentials']['port'] + '/0'
+                    
+                CACHES = {
+                    "default": {
+                        "BACKEND": "django_redis.cache.RedisCache",
+                        "LOCATION": redis_location,
+                        "OPTIONS": {
+                            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                        }
+                    }
+                }
+
 else:
     # for development, don't run migrations!
     DEBUG = True

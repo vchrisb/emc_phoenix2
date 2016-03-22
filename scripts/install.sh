@@ -21,6 +21,11 @@ sudo dnf -y install memcached libmemcached-dev
 sudo systemctl enable memcached.service
 sudo systemctl start memcached.service
 
+# install and configure redis
+sudo dnf -y install redis
+sudo systemctl enable redis.service
+sudo systemctl start redis.service
+
 # install cloud foundry cli
 wget -q https://cli.run.pivotal.io/stable?release=redhat64 -O /tmp/cf-cli-installer.rpm
 sudo rpm -i /tmp/cf-cli-installer.rpm
