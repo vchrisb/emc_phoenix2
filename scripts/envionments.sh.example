@@ -60,6 +60,21 @@ export VCAP_SERVICES='{
             "uri": "amqp://guest:guest@localhost"
           }
         }
+      ],
+      "memcache": [
+        {
+          "name": "phoenix_memcached"
+        }
+      ],
+      "redis": [
+        {
+          "name": "phoenix_redi",
+          "credentials": {
+            "hostname": "127.0.0.1",
+            "password": "",
+            "port": "6379"
+          }
+        }
       ]
 }'
 

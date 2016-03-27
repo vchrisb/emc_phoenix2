@@ -9,7 +9,7 @@ services:
 - phoenix_config
 - phoenix_memcached
 - phoenix_newrelic
-- phoenix_papertrail
+- phoenix_sumologic
 - sendgrid
 env:
   DISABLE_COLLECTSTATIC: '1'

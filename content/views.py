@@ -17,6 +17,7 @@ import json
 
 # Create your views here.
 @cache_on_auth(60 * 15)
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request):
 
     featurette_list = Featurette.objects.filter(publish=True).order_by('position')
@@ -27,7 +28,7 @@ def home(request):
     return render(request, "home.html", context)
 
 @cache_on_auth(60 * 15)
-#@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def faq(request):
 
     faq_list = FAQ.objects.filter(publish=True).order_by('position')

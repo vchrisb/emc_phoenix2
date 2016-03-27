@@ -100,7 +100,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'phoenix.wsgi.application'
-
+#conn_max_age will keep connection open, which is good but bad for Dev databases with limited allowed connections
+#DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
 DATABASES = {'default': dj_database_url.config()}
 
 # Internationalization
@@ -229,7 +230,7 @@ if "VCAP_SERVICES" in os.environ:
                     redis_location = "redis://" + service['credentials']['password'] + '@' + service['credentials']['hostname'] + ':' + service['credentials']['port'] + '/0'
                 else:
                     redis_location = "redis://" + service['credentials']['hostname'] + ':' + service['credentials']['port'] + '/0'
-                    
+
                 CACHES = {
                     "default": {
                         "BACKEND": "django_redis.cache.RedisCache",

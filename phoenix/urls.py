@@ -18,9 +18,9 @@ urlpatterns = [
     url(r'^$', content.views.home, name='home'),
     url(r'^contact/$', content.views.contact, name='contact'),
     url(r'^faq/$', content.views.faq, name='faq'),
-    # url(r'^accommodation/$', content.views.accommodation, name='accommodation'),
-    # url(r'^shuttle/$', content.views.shuttle, name='shuttle'),
-    # url(r'^gallery/$', content.views.gallery, name='gallery'),
+    url(r'^accommodation/$', content.views.accommodation, name='accommodation'),
+    url(r'^shuttle/$', content.views.shuttle, name='shuttle'),
+    url(r'^gallery/$', content.views.gallery, name='gallery'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # Url Entries for allauth
     url(r'^accounts/', include('allauth.urls')),

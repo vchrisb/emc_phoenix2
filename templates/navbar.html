@@ -25,6 +25,12 @@
             <li><a href="{% url 'documents' %}">Dokumente</a></li>
             <li><a href="{% url 'tweetgallery' %}">Bildergalerie</a></li>
             <li><a href="{% url 'whiteboard' %}">Cloud Native Pitch Challenge</a></li>
+            {% if user.is_staff %}
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'agenda' %}">Agenda</a></li>
+            <li><a href="{% url 'accommodation' %}">Unterkunft</a></li>
+            <li><a href="{% url 'shuttle' %}">Shuttle</a></li>
+            {% endif %}
           </ul>
         </li>
         {% endif %}
