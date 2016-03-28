@@ -120,6 +120,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+# disable cache by default and only enable later with either memcached or redis in VCAP_SERVICES
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 # Load VCAP_SERVICES
 if "VCAP_SERVICES" in os.environ:
     VCAP_SERVICES = json.loads(os.environ['VCAP_SERVICES'])
@@ -243,6 +250,7 @@ if "VCAP_SERVICES" in os.environ:
 
 else:
     # for development, don't run migrations!
+    print("No VCAP_SERVICES loaded!")
     DEBUG = True
     SECRET_KEY = "DEVELOPMENT"
     STATIC_URL = '/static/'
@@ -256,7 +264,7 @@ else:
     MEDIA_BUCKET_NAME = None
     MEDIA_CUSTOM_DOMAIN = None
     SECURE_BUCKET_NAME = None
-
+    SECURE_BUCKET_EXPIRE = 1800 #seconds has to be larger than the highest cache value
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_custom'),
