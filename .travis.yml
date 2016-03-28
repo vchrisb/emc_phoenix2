@@ -39,6 +39,6 @@ deploy:
   space: EMC
   manifest: manifest-travis.yml
   on:
-    branch: master
+    branch: PowerHours
     condition: "$DJANGO = '1.9.4'"
     python: '3.5'
