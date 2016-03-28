@@ -145,6 +145,7 @@ def primes(request):
             if high > searchrange:
                 high = searchrange
             prime_number.delay(low,high)
+            #prime_number(low,high)
             low += window
             high += window
 

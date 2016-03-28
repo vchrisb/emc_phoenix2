@@ -14,7 +14,7 @@ from django.views.decorators.cache import cache_page
 from .tasks import process_image
 from PIL import Image
 
-@cache_page(60 * 2)
+@cache_page(30)
 @transaction.atomic
 @specific_verified_email_required(domains=settings.ALLOWED_DOMAINS)
 def tweet(request):
