@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load cloudfoundry_environment %}
+
+{% vcap_application as vcap_application %}
 <footer>
   <div class="container">
              <div class="row bottom-70 bottom-sm-0">
@@ -40,7 +43,9 @@
               <div class="row">
                  <div class="col-xs-7 col-sm-10 copyright-area" >
 
-                         <p>&copy; 2015 EMC Corporation.<br class="visible-xs-block"> All rights reserved.<br class="visible-xs-block"> <a href="http://www.emc.com/site/privacy.jsp" target="_blank">Privacy Policy</a> <a href="http://www.emc.com/site/legal.jsp?openfolder=legal_info" target="_blank">Terms of Use</a></p>
+                         <p>&copy; 2015 EMC Corporation.<br class="visible-xs-block"> All rights reserved.<br class="visible-xs-block"> <a href="http://www.emc.com/site/privacy.jsp" target="_blank">Privacy Policy</a> <a href="http://www.emc.com/site/legal.jsp?openfolder=legal_info" target="_blank">Terms of Use</a>
+                           <br>Instance Index: {{ vcap_application.instance_index }}<br class="visible-xs-block"> Started: {{ vcap_application.start }}
+                         </p>
 
                  </div>
                  <div class="col-xs-5 col-sm-2 " >
