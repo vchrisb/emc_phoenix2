@@ -30,6 +30,10 @@ sudo systemctl start redis.service
 wget -q https://cli.run.pivotal.io/stable?release=redhat64 -O /tmp/cf-cli-installer.rpm
 sudo rpm -i /tmp/cf-cli-installer.rpm
 
+# install travis-ci cli
+sudo dnf install ruby ruby-devel
+gem install travis --no-rdoc --no-ri
+
 # install requirements for Pillow
 sudo dnf -y install libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel
 
