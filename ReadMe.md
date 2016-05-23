@@ -19,6 +19,7 @@ Leveraging:
 * [Papertrail](https://papertrailapp.com/)
 * [Sendgrid](https://sendgrid.com)
 * [Travis CI](https://travis-ci.org)
+* [Slack](https://slack.com/)
 
 Overview:
 ![Overview](/static_custom/img/app_overview.png)

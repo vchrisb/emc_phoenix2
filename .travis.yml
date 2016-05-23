@@ -11,7 +11,7 @@ env:
   global:
     - DATABASE_URL='postgres://postgres:@localhost:/travis_ci_test'
   matrix:
-    - DJANGO=1.9.4
+    - DJANGO=1.9.6
     - DJANGO=latest
 matrix:
   allow_failures:
@@ -40,5 +40,8 @@ deploy:
   manifest: manifest-travis.yml
   on:
     branch: master
-    condition: "$DJANGO = '1.9.4'"
+    condition: "$DJANGO = '1.9.6'"
     python: '3.5'
+notifications:
+  slack:
+    secure: R8t6WPl0jpSJXRsAAFbQvcI9EFj7gsMOjnC/fEzB+F9JlO891at8V0Y7yKLaajyG1salGzeUAGtaBgZ8Q3T3NpC4i290eQj+DseE8eSjH2u+9IlY1eOl+k7LGPQ7gg3leXIp58xmiU4GP+LEyTRG1LaFU5RyXzEdIyGrPBpsWZarIpbJiYunvpeiNOuIE5ctDoKTWgtIMTCTzEgGHV1Q9QaBB7yueXbgEWTHB43aGA5+tughyCfsvqzPRhllT5n8R+vqZawQ07JKHKQLm26+ifxk8wtt+TJARyMG8LKSIm7d0DeROOXPZMqpaG1+zHs3kp+I0Xbk4wblPCaJ5xinLdbqlNn/zGOynove0R/hcFlrvfXonWQkBcg7S71aUaG0oght1TMz0ABGiUMu7Pw2EmeRxFiMuHGBYEwu4LPcQToQSFHp4aS5DyNAed7XfAaehScs8bk7MDirhomZOXYxIu2evlzM0nF/7zAOVcqQA525XaKLaoZKE1gPT0axEcYOnkZIsSoMhNCJKXlBlnZP1c3YfZI8unfHOLh8Ez1IwRdvS/V1j5wzDXxqNtSLFt02i+19ht0TrA4kuW4m/UhFMvDNlsKIlpe/4gsXtgnPs5PHvx0Tuo5e2W+WMcnYytUoa1vce44X/3GHT7cV9+3tAxP7HCBsg3SwGxbRy5nMpIk=
