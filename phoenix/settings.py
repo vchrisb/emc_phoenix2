@@ -205,7 +205,8 @@ if "VCAP_SERVICES" in os.environ:
                 DEFAULT_FROM_EMAIL = service['credentials']['DEFAULT_FROM_EMAIL']
                 DEFAULT_TO_EMAIL = service['credentials']['DEFAULT_TO_EMAIL']
                 SERVER_EMAIL = service['credentials']['SERVER_EMAIL']
-                ADMINS = service['credentials']['ADMINS']
+                import ast
+                ADMINS = ast.literal_eval(service['credentials']['ADMINS'])
 
             elif "memcach" in service['name']:
                 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
