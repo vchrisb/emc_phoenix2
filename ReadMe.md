@@ -159,3 +159,10 @@ pg_restore -d phoenix psqldump.tar
 #### Travis CI
 
 This app is using [Travis CI](https://travis-ci.org) for continuous integration and continuous deployment to Cloud Foundry.
+If your password includes symbols (such as braces, parentheses, backslashes, and pipe symbols), you must escape those symbols before running travis encrypt.
+More Information regarding [Cloud Foundry Deployment](https://docs.travis-ci.com/user/deployment/cloudfoundry/).
+
+```
+travis encrypt --add deploy.username
+travis encrypt --add deploy.password
+```

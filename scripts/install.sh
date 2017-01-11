@@ -31,7 +31,7 @@ wget -q https://cli.run.pivotal.io/stable?release=redhat64 -O /tmp/cf-cli-instal
 sudo rpm -i /tmp/cf-cli-installer.rpm
 
 # install travis-ci cli
-sudo dnf install ruby ruby-devel
+sudo dnf -y install ruby ruby-devel
 gem install travis --no-rdoc --no-ri
 
 # install requirements for Pillow
