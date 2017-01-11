@@ -17,9 +17,11 @@ Leveraging:
 * Twitter Streams
 * [New Relic](http://newrelic.com/)
 * [Papertrail](https://papertrailapp.com/)
+* [Sumologic](https://www.sumologic.com/)
 * [Sendgrid](https://sendgrid.com)
 * [Travis CI](https://travis-ci.org)
 * [Slack](https://slack.com/)
+* [Memcached](https://memcached.org/)
 
 Overview:
 ![Overview](/static_custom/img/app_overview.png)
