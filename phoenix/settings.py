@@ -100,10 +100,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'phoenix.wsgi.application'
-#conn_max_age will keep connection open, which is good but bad for Dev databases with limited allowed connections
-#DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
-DATABASES = {'default': dj_database_url.config()}
-
+if "VCAP_SERVICES" in os.environ:
+    #conn_max_age will keep connection open, which is good but bad for Dev databases with limited allowed connections
+    #DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
+    DATABASES = {'default': dj_database_url.config()}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite.db',
+        }
+    }
+	
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
