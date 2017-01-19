@@ -57,6 +57,44 @@ https://portal.ecstestdrive.com/
  </CORSRule>
 </CORSConfiguration>
 ```
+
+or more specific also for ```GET``` with ```http``` and ```https```
+
+```
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <CORSRule>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>DELETE</AllowedMethod>
+    <AllowedOrigin>http://www.example.com</AllowedOrigin>
+    <AllowedHeader>*</AllowedHeader>
+  </CORSRule>
+  <CORSRule>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedOrigin>http://www.example.com</AllowedOrigin>
+  </CORSRule>
+  <CORSRule>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>DELETE</AllowedMethod>
+    <AllowedOrigin>https//www.example.com</AllowedOrigin>
+    <AllowedHeader>*</AllowedHeader>
+  </CORSRule>
+  <CORSRule>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedOrigin>https://www.example.com</AllowedOrigin>
+  </CORSRule>
+</CORSConfiguration>
+```
+
+to test CORS:
+```
+curl -i "http://static.1234567890.public.ecstestdrive.com/some/file.txt" -H "Origin: http://www.example.com"
+```
+and look for ```Access-Control-Allow-Origin: http://www.example.com``` in the response.
+
+
 #### collectstatic at client
 python manage.py collectstatic
 

@@ -1,7 +1,6 @@
 ---
 instances: 1
 buildpack: python_buildpack
-memory: 128M
 services:
 - phoenix_db_travis
 - phoenix_ecs_travis
@@ -14,9 +13,11 @@ env:
   DISABLE_COLLECTSTATIC: '1'
 applications:
 - name: phoenix2-travis
+  memory: 128M
   host: phoenix2-travis
   command: "bash ./scripts/travis.sh"
 - name: phoenix2-celery-travis
+  memory: 256M
   no-route: true
   health-check-type: none
   command: "celery -A phoenix worker -l info --without-gossip --without-mingle --without-heartbeat"
